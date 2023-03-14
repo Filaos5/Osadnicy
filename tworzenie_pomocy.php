@@ -24,9 +24,15 @@
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
     
         <a href="mapa_pomoc.php">
@@ -229,7 +235,7 @@ $pozycja_x=$pozycja_x+1;
     <br> <br> 
     
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

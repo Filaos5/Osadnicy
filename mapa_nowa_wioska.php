@@ -25,9 +25,15 @@
     
 <body class="body">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
 
     <a href="ratusz.php">
@@ -71,6 +77,7 @@
 
 $id_user=$_SESSION['id_sesji'];
 $id_uczestnik_zalogowany=$_SESSION['id_zalogowanego_uczestnika'];
+$id_wioski=$_SESSION['id_wioski'];
     if($_SESSION['mecz_przeslany']==0)
     {
         header('Location: moje_konto.php');
@@ -84,21 +91,20 @@ $id_meczu=$_SESSION['mecz_przeslany'];
      $wiersz = $rezultat->fetch_assoc();
      $login_gracza=$wiersz['login'];
  }
- $pobranyczas = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
- if($rezultat = @$polaczenie->query($pobranyczas))
+
+ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
+ if($rezultat3 = @$polaczenie->query($sql))
  {
-     $ilu_userow = $rezultat->num_rows;
-     $pobranywiersz = $rezultat->fetch_assoc();       
+     $pobranywiersz = $rezultat3->fetch_assoc();
+     $pobranyczas=$pobranywiersz['czas'];
+    $czas=time();
+    $zmiana=$czas-(int)$pobranyczas;  
+    $predkosc_zywnosc=$pobranywiersz['predkosc_zywnosc'];
+    $predkosc_drewno=$pobranywiersz['predkosc_drewno'];
+    $predkosc_kamien=$pobranywiersz['predkosc_kamien'];
+    $predkosc_metal=$pobranywiersz['predkosc_metal'];
+    $predkosc_zl=$pobranywiersz['predkosc_zl'];
  }
- //$id_uczestnika=$pobranywiersz['id'];
- $pobranyczas=$pobranywiersz['czas'];
- $czas=time();
- $zmiana=$czas-(int)$pobranyczas;
- $predkosc_zywnosc=$pobranywiersz['predkosc_zywnosc'];
- $predkosc_drewno=$pobranywiersz['predkosc_drewno'];
- $predkosc_kamien=$pobranywiersz['predkosc_kamien'];
- $predkosc_metal=$pobranywiersz['predkosc_metal'];
- $predkosc_zl=$pobranywiersz['predkosc_zl'];
  echo 'zywnosc ';
  echo $predkosc_zywnosc;
  echo 'drewno ';
@@ -111,10 +117,6 @@ $id_meczu=$_SESSION['mecz_przeslany'];
  echo $predkosc_zl;
  echo 'zmiana ';
  echo $zmiana;
- $sql = "UPDATE uczestnicy SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
- kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
- czas=$czas WHERE id=$id_uczestnik_zalogowany";
- $polaczenie->query($sql);
  $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
 //$sql=0;
 if($rezultat = @$polaczenie->query($sql))
@@ -127,11 +129,11 @@ if($rezultat = @$polaczenie->query($sql))
 
 <script>
      window.onload = surowce_odliczac;
-     var zywnosc_liczba = <?php echo $wiersz['zywnosc']; ?>;
-     var drewno_liczba = <?php echo $wiersz['drewno']; ?>;
-     var kamien_liczba = <?php echo $wiersz['kamien']; ?>;
-     var metal_liczba = <?php echo $wiersz['metal']; ?>;
-     var zl_liczba = <?php echo $wiersz['pieniadze']; ?>;
+     var zywnosc_liczba = <?php echo $pobranywiersz['zywnosc']; ?>;
+     var drewno_liczba = <?php echo $pobranywiersz['drewno']; ?>;
+     var kamien_liczba = <?php echo $pobranywiersz['kamien']; ?>;
+     var metal_liczba = <?php echo $pobranywiersz['metal']; ?>;
+     var zl_liczba = <?php echo $pobranywiersz['pieniadze']; ?>;
      var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
      var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
      var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
@@ -214,7 +216,7 @@ if($rezultat = @$polaczenie->query($sql))
 document.getElementById("nazmienna").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

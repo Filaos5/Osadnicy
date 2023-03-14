@@ -13,7 +13,7 @@
     {
     $id_user=$_SESSION['id_sesji'];
     $sql = "SELECT * FROM uczestnicy";
-    $mecz=1;
+    $mecz=0;
     if($rezultat = @$polaczenie->query($sql))
     {
         $ilu_userow = $rezultat->num_rows;
@@ -26,28 +26,20 @@
         }
         
     }
-    $czas=time();
-    $sql = "INSERT INTO uczestnicy ( id_user, mecz, era, zywnosc, drewno, kamien, metal, pieniadze, czas, uczestnictwo)
-                VALUES ( '$id_user', '$mecz', 1, 0, 0, 0, 0, 10000, '$czas', 2)";
+    $czas=(int)time();
+    echo $mecz;
+    $sql = "INSERT INTO uczestnicy ( id_user, mecz, era, czas, uczestnictwo, zatwierdzone)
+                VALUES ('$id_user', '$mecz', 1 , '$czas', 2, 0)";
                 $polaczenie->query($sql);
-    //$sql = "SELECT * FROM uczestnicy WHERE mecz='$mecz'";
-   // if($rezultat2 = @$polaczenie->query($sql))
-   // {
-   //     $wiersz2 = $rezultat2->fetch_assoc();
-   //     $id_uczestnika=$wiersz2['id'];
-   // }
+
     for($y=1;$y<=20;$y++){
         for($x=1;$x<=20;$x++){  
-            $sql = "INSERT INTO wioska ( id_uczestnika, mecz, pozycjax, pozycjay, ratusz, morale)
-                VALUES ( 0 , '$mecz', '$x', '$y', '0', 1)";
+            $sql = "INSERT INTO wioska ( id_uczestnika, mecz, pozycjax, pozycjay, ratusz, morale, cywile)
+                VALUES ( 0 , '$mecz', '$x', '$y', '0', 1, 20)";
                 $polaczenie->query($sql);
             }
         }
         $_SESSION['mecz_przeslany']=$mecz;
-        //$sql = "INSERT INTO wioska ( id_uczestnika, mecz, pozycjax, pozycjay, ratusz)
-         //       VALUES ( '$id_uczestnika', '$mecz', '$x', '$y', '0')";
-          //      @$polaczenie->query($sql);
-         // $_POST['mPozycja']=
         header('Location: mapa_nowy_mecz_tw.php');
     $polaczenie->close();
     }

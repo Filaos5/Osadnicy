@@ -21,9 +21,11 @@
     else{
         header('Location: moje_konto.php');
     }
-    $sql = "UPDATE uczestnicy SET zatwierdzone=1, predkosc_zl=20 WHERE mecz='$id_meczu'";
+    $sql = "UPDATE uczestnicy SET zatwierdzone=1 WHERE mecz='$id_meczu'";
     @$polaczenie->query($sql);
-
+    $czas=(int)time();
+    $sql = "UPDATE wioska SET czas=$czas WHERE mecz='$id_meczu'";
+    @$polaczenie->query($sql);
     $polaczenie->close();
     }
     header('Location: moje_konto.php');

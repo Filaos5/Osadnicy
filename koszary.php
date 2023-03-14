@@ -24,9 +24,15 @@
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
         <a href="wioska.php">
         <div class="powrot">Powrót</div></a>
@@ -61,7 +67,9 @@
         <div id="zegar"></div>
         <script>
  function ile_miecznikow(){
+    //jednostka=1;
     document.getElementById("miecznik_ilosc").submit();
+    //jednostka.submit();
 }
 function ile_lucznikow(){
     document.getElementById("lucznik_ilosc").submit();
@@ -107,30 +115,27 @@ if($rezultat = @$polaczenie->query($pobranyczas))
     $wiersz = $rezultat->fetch_assoc();
    
 }
-$pobranyczas=$wiersz['czas'];
-$czas=time();
-$zmiana=$czas-(int)$pobranyczas;  
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
-$sql = "UPDATE uczestnicy SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
-kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
-czas=$czas WHERE id=$id_uczestnik_zalogowany";
-$polaczenie->query($sql);
- $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
- if($rezultat = @$polaczenie->query($sql))
+
+ $sql = "SELECT * FROM budynki";
+ if($rezultat2 = @$polaczenie->query($sql))
  {
      $ilu_userow = $rezultat->num_rows;
-     $wiersz = $rezultat->fetch_assoc();
+     $wiersz_ratusz = $rezultat2->fetch_assoc();
+     $wiersz_gospoda = $rezultat2->fetch_assoc();
+     $wiersz_tartak = $rezultat2->fetch_assoc();
+     $wiersz_kuznia = $rezultat2->fetch_assoc();
+     $wiersz_kamienilom = $rezultat2->fetch_assoc();
+     $wiersz_dom = $rezultat2->fetch_assoc();
+     $wiersz_blok = $rezultat2->fetch_assoc();
+     $wiersz_kosciol = $rezultat2->fetch_assoc();
+     $wiersz_koszary = $rezultat2->fetch_assoc();
+     $wiersz_stajnia = $rezultat2->fetch_assoc();
+     $wiersz_huta = $rezultat2->fetch_assoc();
+     $wiersz_fabryka = $rezultat2->fetch_assoc();
+     $wiersz_lotnisko = $rezultat2->fetch_assoc();
+     $wiersz_uniwersytet = $rezultat2->fetch_assoc();
     
  }
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
  $sql = "SELECT * FROM wojsko WHERE nazwa='Miecznik' OR nazwa='Lucznik' OR nazwa='Karabin' OR nazwa='Karabinmaszynowy'";
  if($rezultat2 = @$polaczenie->query($sql))
  {
@@ -142,23 +147,37 @@ $predkosc_zl=$wiersz['predkosc_zl'];
  $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
  if($rezultat3 = @$polaczenie->query($sql))
  {
-     $wioska_jednostki = $rezultat3->fetch_assoc();
+     $wioska_budynki = $rezultat3->fetch_assoc();
+     $pobranyczas=$wioska_budynki['czas'];
+    $czas=time();
+    $zmiana=$czas-(int)$pobranyczas;  
+    $predkosc_zywnosc=$wioska_budynki['predkosc_zywnosc'];
+    $predkosc_drewno=$wioska_budynki['predkosc_drewno'];
+    $predkosc_kamien=$wioska_budynki['predkosc_kamien'];
+    $predkosc_metal=$wioska_budynki['predkosc_metal'];
+    $predkosc_zl=$wioska_budynki['predkosc_zl'];
  }
+
+$sql = "UPDATE wioska SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
+kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
+czas=$czas WHERE id=$id_wioski";
+@$polaczenie->query($sql);
  $polaczenie->close();
  }
  ?>
 <script>
         window.onload = surowce_odliczac;
-        var zywnosc_liczba = <?php echo $wiersz['zywnosc']; ?>;
-        var drewno_liczba = <?php echo $wiersz['drewno']; ?>;
-        var kamien_liczba = <?php echo $wiersz['kamien']; ?>;
-        var metal_liczba = <?php echo $wiersz['metal']; ?>;
-        var zl_liczba = <?php echo $wiersz['pieniadze']; ?>;
+        var zywnosc_liczba = <?php echo $wioska_budynki['zywnosc']; ?>;
+        var drewno_liczba = <?php echo $wioska_budynki['drewno']; ?>;
+        var kamien_liczba = <?php echo $wioska_budynki['kamien']; ?>;
+        var metal_liczba = <?php echo $wioska_budynki['metal']; ?>;
+        var zl_liczba = <?php echo $wioska_budynki['pieniadze']; ?>;
         var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
         var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
         var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
         var predkosc_metal = <?php echo $predkosc_metal; ?>;
         var predkosc_zl = <?php echo $predkosc_zl; ?>;
+        
     function surowce_odliczac()
         {
             zywnosc_liczba = zywnosc_liczba+predkosc_zywnosc;
@@ -173,6 +192,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
             document.getElementById("zl").innerHTML = zl_liczba ;
             setTimeout("surowce_odliczac()",1000);
         }
+
 </script>
         <div class="surowce">
             <ul class="surowiec">
@@ -193,10 +213,9 @@ $predkosc_zl=$wiersz['predkosc_zl'];
              <li>   Drewno <?php echo $wiersz_miecznik['drewno']; ?></li>
              <li>   Metal <?php echo $wiersz_miecznik['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_miecznik['pieniadze']; ?></li>
-             <li>  <form id="miecznik_ilosc" action="szkolenie/miecznik.php" method="POST"> Ilość            
-            <input type="number" name="miecz_ilosc"  id='miecznik' required /></form></li>
-        </ul> 
-        <div class="budowa" onclick="ile_miecznikow()">TRENUJ  </div>        
+             <li>  <form id="miecznik_ilosc" action="szkolenie/zapis_do_bazy.php" method="POST"> Ilość            
+            <input type="number" name="miecz_ilosc"  value="0" id='miecznik' required /></li>
+        </ul>        
     </div>
     </div>
     <div class="wojsko_ramka"> Łucznik
@@ -206,10 +225,9 @@ $predkosc_zl=$wiersz['predkosc_zl'];
              <li>   Drewno <?php echo $wiersz_lucznik['drewno']; ?></li>
              <li>   Metal <?php echo $wiersz_lucznik['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_lucznik['pieniadze']; ?></li>
-             <li>  <form id="lucznik_ilosc" action="szkolenie/lucznik.php" method="POST"> Ilość            
-            <input type="number" name="luk_ilosc"  id='miecznik' required /></form></li>
-        </ul> 
-        <div class="budowa" onclick="ile_lucznikow()">TRENUJ  </div>        
+             <li>   Ilość            
+            <input type="number" name="luk_ilosc" value="0" id='miecznik' required /></li>
+        </ul>    
     </div>
     </div>
     <?php
@@ -222,10 +240,9 @@ $predkosc_zl=$wiersz['predkosc_zl'];
              <li>   Drewno <?php echo $wiersz_karabin['drewno']; ?></li>
              <li>   Metal <?php echo $wiersz_karabin['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_karabin['pieniadze']; ?></li>
-             <li>  <form id="karabiny_ilosc" action="szkolenie/karabin.php" method="POST"> Ilość            
-            <input type="number" name="karabin_ilosc"  id='karabin' required /></form></li>
-        </ul> 
-        <div class="budowa" onclick="ile_karabinow()">TRENUJ  </div>        
+             <li>   Ilość            
+            <input type="number" name="karabin_ilosc" value="0" id='karabin' required /></li>
+        </ul>     
     </div>
     </div>
     <?php
@@ -239,10 +256,13 @@ $predkosc_zl=$wiersz['predkosc_zl'];
              <li>   Drewno <?php echo $wiersz_karabinmaszynowy['drewno']; ?></li>
              <li>   Metal <?php echo $wiersz_karabinmaszynowy['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_karabinmaszynowy['pieniadze']; ?></li>
-             <li>  <form id="karabinymaszynowe_ilosc" action="szkolenie/karabinmaszynowy.php" method="POST"> Ilość            
-            <input type="number" name="karabinmaszynowy_ilosc"  id='karabinmaszynowy' required /></form></li>
+             <li>   Ilość            
+            <input type="number" name="karabinmaszynowy_ilosc" value="0" id='karabinmaszynowy' required /></li>
         </ul> 
-        <div class="budowa" onclick="ile_karabinowmaszynowych()">TRENUJ  </div>        
+       
+        <button type="submit" name="rejestracja" id="przycisk" >TRENUJ</button>
+         
+        </form>   
     </div>
     </div>
     <?php
@@ -257,7 +277,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_miecznik['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_miecznik['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_miecznik['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['miecznik']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['miecznik']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/miecznik.jpg">
 <div class="koniec"></div>
@@ -269,7 +289,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_lucznik['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_lucznik['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_lucznik['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['lucznik']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['lucznik']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/lucznik.jpg">
 <div class="koniec"></div>
@@ -284,7 +304,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_karabin['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_karabin['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_karabin['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['karabin']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['karabin']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/z_karabinem.jpg">
 <div class="koniec"></div>
@@ -300,7 +320,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_karabin['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_karabin['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_karabin['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['karabinmaszynowy']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['karabinmaszynowy']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/karabin_maszynowy.jpg">
 <div class="koniec"></div>
@@ -311,7 +331,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
     ?>
     </div>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022</p>
+            <p><div id="tekst"></div> Filip Sawicki 2023</p>
         </footer>
     
 </body>

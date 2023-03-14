@@ -25,12 +25,18 @@
     
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
    
-    <a href="index.php">
-        <div class="powrot">Mapa</div></a>
+        <div class="powrot" onclick="budynek(id)" id="index">Mapa</div>
         <div class="wylogowanie">
     <h2>
         <?php
@@ -96,6 +102,14 @@
  if($rezultat3 = $polaczenie->query($sql))
  {
      $wioska_budynki = $rezultat3->fetch_assoc();
+     $pobranyczas=$wioska_budynki['czas'];
+     $czas=time();
+     $zmiana=$czas-(int)$pobranyczas;
+     $predkosc_zywnosc=$wioska_budynki['predkosc_zywnosc'];
+     $predkosc_drewno=$wioska_budynki['predkosc_drewno'];
+     $predkosc_kamien=$wioska_budynki['predkosc_kamien'];
+     $predkosc_metal=$wioska_budynki['predkosc_metal'];
+     $predkosc_zl=$wioska_budynki['predkosc_zl'];  
  }
  $id_wioski=$wioska_budynki['id'];
 // echo $id_wioski.' id wioski <br>';
@@ -104,36 +118,24 @@
     if($rezultat = @$polaczenie->query($pobranyczas))
     {
         $ilu_userow = $rezultat->num_rows;
-        $pobranywiersz = $rezultat->fetch_assoc();       
+        $pobranywiersz = $rezultat->fetch_assoc();  
+     
     }
     //$id_uczestnika=$pobranywiersz['id'];
-    $pobranyczas=$pobranywiersz['czas'];
-    $czas=time();
-    $zmiana=$czas-(int)$pobranyczas;
-    $predkosc_zywnosc=$pobranywiersz['predkosc_zywnosc'];
-    $predkosc_drewno=$pobranywiersz['predkosc_drewno'];
-    $predkosc_kamien=$pobranywiersz['predkosc_kamien'];
-    $predkosc_metal=$pobranywiersz['predkosc_metal'];
-    $predkosc_zl=$pobranywiersz['predkosc_zl'];
-    /*
-    echo 'zywnosc ';
-    echo $predkosc_zywnosc;
-    echo 'drewno ';
-    echo $predkosc_drewno;
-    echo 'kamien ';
-    echo $predkosc_kamien;
-    echo 'metal ';
-    echo $predkosc_metal;
-    echo 'zl ';
-    echo $predkosc_zl;
-    echo 'zmiana ';
-    echo $zmiana;
-    */
-    $sql = "UPDATE uczestnicy SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
+
+    $sql = "UPDATE wioska SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
     kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
-    czas=$czas WHERE id=$id_uczestnik_zalogowany";
+    czas=$czas WHERE id=$id_wioski";
     $polaczenie->query($sql);
     $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
+ //$sql=0;
+ if($rezultat = @$polaczenie->query($sql))
+ {
+     $ilu_userow = $rezultat->num_rows;
+     $wierszu = $rezultat->fetch_assoc();
+    
+ }
+ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
  //$sql=0;
  if($rezultat = @$polaczenie->query($sql))
  {
@@ -171,6 +173,12 @@
             document.getElementById("zl").innerHTML = zl_liczba ;
             setTimeout("surowce_odliczac()",1000);
         }
+        function budynek(id){
+    zmiennajava = id;
+    console.log ( '#someButton was clicked' );
+    document.getElementById("kolejne_przejscie").value = zmiennajava;
+    document.getElementById("budynek_nazwa").submit();
+}
 </script>
         <div class="surowce">
             <ul class="surowiec">
@@ -183,84 +191,70 @@
     </div>
     <div class="container">
     <h4>BUDYNKI</h4>
-    <a href="ratusz.php" class="tilelink"> 
-    <div class="budynek">
-        <div class="b_opis"> Ratusz</div>       
+    <div class="budynek" onclick="budynek(id)" id="ratusz" >
+        <div class="b_opis"> Ratusz</div>
         <img class="zdjecie_b" src="zdjecia/ratusz.jpg">
     </div>
-    </a>
     <?php 
     if($wioska_budynki['gospodarstwo']>0){
     ?>
-    <a href="gospodarstwo.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="gospodarstwo" >
         <div class="b_opis"> Gospodarstwo rolne</div>
         <img class="zdjecie_b" src="zdjecia/gospodarstwo.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['kuznia']>0){
     ?>
-    <a href="kuznia.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="kuznia">
         <div class="b_opis"> Kuźnia</div>
         <img class="zdjecie_b" src="zdjecia/kuznia.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['tartak']>0){
     ?>
-    <a href="tartak.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="tartak">
         <div class="b_opis"> Tartak</div>
         <img class="zdjecie_b" src="zdjecia/tartak.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['kamieniolom']>0){
     ?>
-    <a href="kamieniolom.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="kamieniolom">
         <div class="b_opis"> Kamieniołom</div>
         <img class="zdjecie_b" src="zdjecia/kamieniolom.jpg">
     </div>
-    </a> 
     <?php 
     }
     if($wioska_budynki['kosciol']>0){
     ?>
-    <a href="kosciol.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="kosciol">
         <div class="b_opis"> Kościół</div>
-        <?php if($wiersz['era']<=3 ){ ?>
+        <?php if($wierszu['era']<=3 ){ ?>
         <img class="zdjecie_b" src="zdjecia/kosciol.jpg">
         <?php 
         }
-        if($wiersz['era']>3 ){ ?>
+        if($wierszu['era']>3 ){ ?>
         <img class="zdjecie_b" src="zdjecia/kosciol5.jpg">
         <?php 
         }?>
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['uniwersytet']>0){
     ?>
-    <a href="uniwersytet.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="uniwersytet">
         <div class="b_opis"> Uniwersytet</div>
         <img class="zdjecie_b" src="zdjecia/uniwersytet.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['koszary']>0){
     ?>
     <a href="koszary.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="koszary">
         <div class="b_opis"> Koszary</div>
         <img class="zdjecie_b" src="zdjecia/koszary.jpg">
     </div>
@@ -269,80 +263,57 @@
     }
     if($wioska_budynki['stajnia']>0){
     ?>
-    <a href="stajnia.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="stajnia">
         <div class="b_opis"> Stajnia</div>
         <img class="zdjecie_b" src="zdjecia/stajnia.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['huta']>0){
     ?>
-    <a href="huta.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="huta">
         <div class="b_opis"> Huta</div>
         <img class="zdjecie_b" src="zdjecia/huta.jpg">
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['fabryka']>0){
     ?>
-    <a href="fabryka.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="fabryka">
         <div class="b_opis"> Fabryka</div>
-        <?php if($wiersz['era']<=3 ){ ?>
+        <?php if($wierszu['era']<=3 ){ ?>
         <img class="zdjecie_b" src="zdjecia/fabryka_stara.jpg">
         <?php 
         }
-        if($wiersz['era']>=4 ){ ?>
+        if($wierszu['era']>=4 ){ ?>
         <img class="zdjecie_b" src="zdjecia/fabryka.jpg">
         <?php 
         }?>
     </div>
-    </a>
     <?php 
     }
     if($wioska_budynki['lotnisko']>0){
     ?>
-    <a href="lotnisko.php" class="tilelink"> 
-    <div class="budynek">
+    <div class="budynek" onclick="budynek(id)" id="lotnisko">
         <div class="b_opis"> Lotnisko</div>
         <img class="zdjecie_b" src="zdjecia/lotnisko.jpg">
     </div>
-    </a>
     <?php 
     }
     ?>
 
     </div>
     <br> <br> 
-    
+    <form id="budynek_nazwa" action="zdarzenie_cokolwiek.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022</p>
+            <p><div id="tekst"></div> Filip Sawicki 2023</p>
         </footer>
     
 </body>
 
 </html>
 
-
-
-
-
-
-<!--
-        <a href="domy.php" class="tilelink"> 
-    <div class="budynek">
-        <div class="b_opis"> Domy</div>
-        <img class="zdjecie_b" src="zdjecia/dom.jpg">
-    </div>
-    </a>
-    <a href="bloki.php" class="tilelink"> 
-    <div class="budynek">
-        <div class="b_opis"> Bloki</div>
-        <img class="zdjecie_b" src="zdjecia/bloki.jpg">
-    </div>
-    </a>
--->

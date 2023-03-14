@@ -13,6 +13,7 @@
     {
     $id_user=$_SESSION['id_sesji'];
     $id_uczestnik_zalogowany=$_SESSION['id_zalogowanego_uczestnika']; 
+    $id_wioski=$_SESSION['id_wioski'];
     if($_SESSION['mecz_przeslany']==0)
     {
         header('Location: moje_konto.php');
@@ -29,7 +30,7 @@
    {
        $wiersz_ratusz = $rezultat2->fetch_assoc();
    }
-   $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
+   $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
    if($rezultat = @$polaczenie->query($sql))
    {
        $wiersz = $rezultat->fetch_assoc();
@@ -38,21 +39,15 @@
        $metal=$wiersz['metal'];
        $kamien=$wiersz['kamien'];
    }
-   //echo 'idmeczu';
-   //echo $id_meczu;
-   //echo 'pozx';
-   //echo $pozycja_x;
-   //echo 'pozy';
-   //echo $pozycja_y;
     $czas=time();
     $koszt=(int)$wiersz_ratusz['pieniadze']; 
     $drewno_budowa=(int)$wiersz_ratusz['drewno']; 
     $metal_budowa=(int)$wiersz_ratusz['metal'];
     $kamien_budowa=(int)$wiersz_ratusz['kamien'];
     if($pieniadze>$koszt && $drewno>$drewno_budowa && $metal>$metal_budowa && $kamien>$kamien_budowa){
-   $sql = "UPDATE wioska SET id_uczestnika='$id_uczestnik_zalogowany' WHERE mecz='$id_meczu' AND id_uczestnika=0 AND pozycjax=$pozycja_x AND pozycjay=$pozycja_y";
+   $sql = "UPDATE wioska SET id_uczestnika='$id_uczestnik_zalogowany', predkosc_zywnosc=20, cywile=20, czas=$czas WHERE mecz='$id_meczu' AND id_uczestnika=0 AND pozycjax=$pozycja_x AND pozycjay=$pozycja_y";
     $polaczenie->query($sql);
-    $sql = "UPDATE uczestnicy SET pieniadze=pieniadze-$koszt, drewno=drewno-$drewno_budowa, metal=metal-$metal_budowa, kamien=kamien-$kamien_budowa WHERE id=$id_uczestnik_zalogowany";
+    $sql = "UPDATE wioska SET pieniadze=pieniadze-$koszt, drewno=drewno-$drewno_budowa, metal=metal-$metal_budowa, kamien=kamien-$kamien_budowa WHERE id=$id_wioski";
     $polaczenie->query($sql); 
     $polaczenie->close();
     }

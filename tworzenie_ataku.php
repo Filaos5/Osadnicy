@@ -24,9 +24,15 @@
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
     
         <a href="mapa_pomoc.php">
@@ -66,12 +72,14 @@ function ile_wojska(){
  }
  else
  {
-
+    
 $id_user=$_SESSION['id_sesji'];
 $id_uczestnik_zalogowany=$_SESSION['id_zalogowanego_uczestnika'];
 $id_meczu=$_SESSION['mecz_przeslany'];
 $id_wioski=$_SESSION['id_wioski'];
+if(!isset($_SESSION['wioska_pozycja_atakowana'])){
 $_SESSION['wioska_pozycja_atakowana']=$_POST['wioska_Pozycja'];
+}
 $wioska_pozycja=(int)$_SESSION['wioska_pozycja_atakowana'];
 $pobranyczas = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
 if($rezultat = @$polaczenie->query($pobranyczas))
@@ -223,7 +231,7 @@ $lotnisko=$wioska_lotnisko['lotnisko'];
     <br> <br> 
     
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

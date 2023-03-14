@@ -25,9 +25,15 @@
     
 <body class="body">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
 
     <div class="container">
@@ -162,7 +168,7 @@ $id_meczu=$_SESSION['mecz_przeslany'];
 document.getElementById("nazmienna").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

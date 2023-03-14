@@ -24,13 +24,19 @@
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
     
-        <a href="wioska.php">
-        <div class="powrot">Powrót</div></a>
+        <div class="powrot" onclick="przejscie(id)" id="wioska">Powrót</div>
+      
         <div class="wylogowanie">
     <h2>
         <?php
@@ -42,6 +48,7 @@
        </div>
 
         </a>
+       
         <?php
         }
         if(isset($_SESSION['atak_jednostki_malo'])){
@@ -107,102 +114,104 @@ if($rezultat = @$polaczenie->query($pobranyczas))
     $wiersz = $rezultat->fetch_assoc();
    
 }
-$pobranyczas=$wiersz['czas'];
-$czas=time();
-$zmiana=$czas-(int)$pobranyczas;  
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
-//echo 'zywnosc ';
-//echo $predkosc_zywnosc;
-//echo 'drewno ';
-//echo $predkosc_drewno;
-//echo 'kamien ';
-//echo $predkosc_kamien;
-//echo 'metal ';
-//echo $predkosc_metal;
-//echo 'zl ';
-//echo $predkosc_zl;
-//echo 'zmiana ';
-//echo $zmiana;
-$sql = "UPDATE uczestnicy SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
-kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
-czas=$czas WHERE id=$id_uczestnik_zalogowany";
-$polaczenie->query($sql);
- $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
- if($rezultat = @$polaczenie->query($sql))
- {
-     $ilu_userow = $rezultat->num_rows;
-     $wiersz = $rezultat->fetch_assoc();
-    
- }
- $sql = "SELECT * FROM budynki";
- if($rezultat2 = @$polaczenie->query($sql))
- {
-     $ilu_userow = $rezultat->num_rows;
-     $wiersz_ratusz = $rezultat2->fetch_assoc();
-     $wiersz_gospoda = $rezultat2->fetch_assoc();
-     $wiersz_tartak = $rezultat2->fetch_assoc();
-     $wiersz_kuznia = $rezultat2->fetch_assoc();
-     $wiersz_kamienilom = $rezultat2->fetch_assoc();
-     $wiersz_dom = $rezultat2->fetch_assoc();
-     $wiersz_blok = $rezultat2->fetch_assoc();
-     $wiersz_kosciol = $rezultat2->fetch_assoc();
-     $wiersz_koszary = $rezultat2->fetch_assoc();
-     $wiersz_stajnia = $rezultat2->fetch_assoc();
-     $wiersz_huta = $rezultat2->fetch_assoc();
-     $wiersz_fabryka = $rezultat2->fetch_assoc();
-     $wiersz_lotnisko = $rezultat2->fetch_assoc();
-     $wiersz_uniwersytet = $rezultat2->fetch_assoc();
-    
- }
-$wioska_pozycja=(int)$_SESSION['wioska_pozycja'];
-$pozycja_x=((int)$wioska_pozycja)%20;
-$pozycja_y=((((int)$wioska_pozycja)-$pozycja_x)/20)+1;
-$pozycja_x=$pozycja_x+1;
-$sql = "SELECT * FROM wioska WHERE id=$id_wioski";
- //$sql = "SELECT * FROM wioska WHERE id_uczestnika=$id_uczestnik_zalogowany AND mecz=$id_meczu AND pozycjax=$pozycja_x AND pozycjay=$pozycja_y";
- if($rezultat3 = @$polaczenie->query($sql))
- {
-     $wioska_budynki = $rezultat3->fetch_assoc();
- }
- $id_wioski=$wioska_budynki['id'];
- $_SESSION['id_wioski']=$id_wioski;
- $polaczenie->close();
- }
- //<li>   Żywność:<div id="zywnosc"></div></li>
- ?>
-<h4>SUROWCE</h4>
-<script>
 
-        window.onload = surowce_odliczac;
-        var zywnosc_liczba = <?php echo $wiersz['zywnosc']; ?>;
-        var drewno_liczba = <?php echo $wiersz['drewno']; ?>;
-        var kamien_liczba = <?php echo $wiersz['kamien']; ?>;
-        var metal_liczba = <?php echo $wiersz['metal']; ?>;
-        var zl_liczba = <?php echo $wiersz['pieniadze']; ?>;
-        var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
-        var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
-        var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
-        var predkosc_metal = <?php echo $predkosc_metal; ?>;
-        var predkosc_zl = <?php echo $predkosc_zl; ?>;
-    function surowce_odliczac()
-        {
-            zywnosc_liczba = zywnosc_liczba+predkosc_zywnosc;
-            drewno_liczba = drewno_liczba+predkosc_drewno;
-            kamien_liczba = kamien_liczba+predkosc_kamien;
-            metal_liczba = metal_liczba+predkosc_metal;
-            zl_liczba = zl_liczba+predkosc_zl;
-            document.getElementById("zywnosc").innerHTML = zywnosc_liczba ;
-            document.getElementById("drewno").innerHTML = drewno_liczba ;
-            document.getElementById("kamien").innerHTML = kamien_liczba ;
-            document.getElementById("metal").innerHTML = metal_liczba ;
-            document.getElementById("zl").innerHTML = zl_liczba ;
-            setTimeout("surowce_odliczac()",1000);
-        }
+$sql = "SELECT * FROM budynki";
+if($rezultat2 = @$polaczenie->query($sql))
+{
+    $ilu_userow = $rezultat->num_rows;
+    $wiersz_ratusz = $rezultat2->fetch_assoc();
+    $wiersz_gospoda = $rezultat2->fetch_assoc();
+    $wiersz_tartak = $rezultat2->fetch_assoc();
+    $wiersz_kuznia = $rezultat2->fetch_assoc();
+    $wiersz_kamienilom = $rezultat2->fetch_assoc();
+    $wiersz_dom = $rezultat2->fetch_assoc();
+    $wiersz_blok = $rezultat2->fetch_assoc();
+    $wiersz_kosciol = $rezultat2->fetch_assoc();
+    $wiersz_koszary = $rezultat2->fetch_assoc();
+    $wiersz_stajnia = $rezultat2->fetch_assoc();
+    $wiersz_huta = $rezultat2->fetch_assoc();
+    $wiersz_fabryka = $rezultat2->fetch_assoc();
+    $wiersz_lotnisko = $rezultat2->fetch_assoc();
+    $wiersz_uniwersytet = $rezultat2->fetch_assoc();
+   
+}
+$sql = "SELECT * FROM wioska WHERE id=$id_wioski";
+if($rezultat3 = @$polaczenie->query($sql))
+{
+    $wioska_budynki = $rezultat3->fetch_assoc();
+    $pobranyczas=$wioska_budynki['czas'];
+   $czas=time();
+   $zmiana=$czas-(int)$pobranyczas;  
+   $predkosc_zywnosc=$wioska_budynki['predkosc_zywnosc'];
+   $predkosc_drewno=$wioska_budynki['predkosc_drewno'];
+   $predkosc_kamien=$wioska_budynki['predkosc_kamien'];
+   $predkosc_metal=$wioska_budynki['predkosc_metal'];
+   $predkosc_zl=$wioska_budynki['predkosc_zl'];
+}
+
+$sql = "UPDATE wioska SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
+kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
+czas=$czas WHERE id=$id_wioski";
+@$polaczenie->query($sql);
+$polaczenie->close();
+}
+$liczba = 1234.56;
+
+    // notacja angielska (domyślna)
+    $notacja_angielska = number_format($liczba);
+    // 1,234.56
+
+    // notacja polska
+    $notacja_polska = number_format($liczba, 0, ',', ' ');
+    // 1 234,56
+    echo number_format((int)$wioska_budynki['zywnosc'], 0, ',', ' ');
+?>
+<script>
+       window.onload = surowce_odliczac;
+       var zywnosc_liczba = <?php echo $wioska_budynki['zywnosc']; ?>;
+       var drewno_liczba = <?php echo $wioska_budynki['drewno']; ?>;
+       var kamien_liczba = <?php echo $wioska_budynki['kamien']; ?>;
+       var metal_liczba = <?php echo $wioska_budynki['metal']; ?>;
+       var zl_liczba = <?php echo $wioska_budynki['pieniadze']; ?>;
+       var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
+       var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
+       var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
+       var predkosc_metal = <?php echo $predkosc_metal; ?>;
+       var predkosc_zl = <?php echo $predkosc_zl; ?>;
+       
+   function surowce_odliczac()
+       {
+           zywnosc_liczba = zywnosc_liczba+predkosc_zywnosc;
+           drewno_liczba = drewno_liczba+predkosc_drewno;
+           kamien_liczba = kamien_liczba+predkosc_kamien;
+           metal_liczba = metal_liczba+predkosc_metal;
+           zl_liczba = zl_liczba+predkosc_zl;
+           document.getElementById("zywnosc").innerHTML = zywnosc_liczba;
+           document.getElementById("drewno").innerHTML = drewno_liczba ;
+           document.getElementById("kamien").innerHTML = kamien_liczba ;
+           document.getElementById("metal").innerHTML = metal_liczba ;
+           document.getElementById("zl").innerHTML = zl_liczba ;
+           setTimeout("surowce_odliczac()",1000);
+       }
+        function przejscie(id){
+    zmiennajava = id;
+    console.log ( '#someButton was clicked' );
+    document.getElementById("przejscie").value = zmiennajava;
+    document.getElementById("link_nazwa").submit();
+}
+function budynek_nazwa(id){
+    zmiennajava = id;
+    console.log ( '#someButton was clicked' );
+    document.getElementById("kolejne_przejscie").value = zmiennajava;
+    document.getElementById("budynek_nazwa").submit();
+}
+
 </script>
+<form id="link_nazwa" action="zdarzenie_cokolwiek.php" method="POST">
+      <input type="hidden" name="kolejne_przejscie" id='przejscie' required /><br />
+      <script>
+      document.getElementById("przejscie").value = zmiennajava;</script>
+      </form>
         <div class="surowce">
             <ul class="surowiec">
              <li>   Żywność:<div id="zywnosc"></div></li>
@@ -218,17 +227,11 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
         <br>
         <center><img class="zdjecie2" src="zdjecia/ratusz.jpg"></center>
         <br>
-        <a href="mapa_atak.php">
-    <div class=tworzenie> Ataki</div>
-    </a>
+    <div class=tworzenie onclick="przejscie(id)" id="mapa_atak"> Ataki</div>
     <br>
-    <a href="mapa_pomoc.php">
-    <div class=tworzenie> Przekaż pomoc</div>
-    </a>
+    <div class=tworzenie onclick="przejscie(id)" id="mapa_pomoc"> Przekaż pomoc</div>
     <br>
-    <a href="mapa_nowa_wioska.php">
-    <div class=tworzenie> Załóż nową wioskę</div>
-    </a>
+    <div class=tworzenie onclick="przejscie(id)" id="mapa_nowa_wioska"> Załóż nową wioskę</div>
     <br>
         <div class="nazwa_budynku"> Budynki</div>
         <?php
@@ -243,9 +246,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_gospoda['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_gospoda['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/gospodarstwo_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="gospodarstwo">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -260,9 +266,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_tartak['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_tartak['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/tartak_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="tartak">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -294,9 +303,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_kamienilom['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_kamienilom['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/kamieniolom_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="kamieniolom">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -311,9 +323,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_kosciol['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_kosciol['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/kosciol_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="kosciol">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -328,9 +343,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_koszary['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_koszary['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/koszary_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="koszary">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -345,9 +363,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_koszary['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_koszary['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/stajnia_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="stajnia">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -362,9 +383,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_uniwersytet['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_uniwersytet['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/uniwersytet_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="uniwersytet">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -391,14 +415,17 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
     <div class="b_budowa"> Fabryka
         </div>       
         <ul class="koszty">
-             <li>   Drewno <?php echo $wiersz_koszary['drewno']; ?></li>
-             <li>   Kamień <?php echo $wiersz_koszary['kamien']; ?></li>
-             <li>   Metal <?php echo $wiersz_koszary['metal']; ?></li>
-             <li>   Złotówki <?php echo $wiersz_koszary['pieniadze']; ?></li>
+             <li>   Drewno <?php echo $wiersz_fabryka['drewno']; ?></li>
+             <li>   Kamień <?php echo $wiersz_fabryka['kamien']; ?></li>
+             <li>   Metal <?php echo $wiersz_fabryka['metal']; ?></li>
+             <li>   Złotówki <?php echo $wiersz_fabryka['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/fabryka_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="fabryka">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -413,9 +440,12 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
              <li>   Metal <?php echo $wiersz_lotnisko['metal']; ?></li>
              <li>   Złotówki <?php echo $wiersz_lotnisko['pieniadze']; ?></li>
         </ul> 
-        <a href="budowa/lotnisko_budowa.php">
-        <div class="budowa">BUDUJ  </div>
-        </a>
+        <div class="budowa" onclick="budynek_nazwa(id)" id="lotnisko">BUDUJ  </div>
+        <form id="budynek_nazwa" action="budowa/budynek_budowa.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
     </div>
     <?php
     }
@@ -452,6 +482,9 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
         
     </div>
     <?php
+    /*
+      
+      */
     }
     $ludnosc_zywnosc=200;
     $ludnosc_cena=2000;
@@ -479,10 +512,17 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
         <div class="populacja2">Maksymalna możliwa liczba ludności <?php echo $ludnosc_maksymalna; ?> </div>
     </div>
     </div>
+ 
+    <form id="link_nazwa" action="zdarzenie_cokolwiek.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
+
     <br> <br> 
     
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

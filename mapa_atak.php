@@ -9,6 +9,7 @@
     else{
     header('Location: logowanie.php');
     }
+    $_SESSION['mapa']=2;
 ?>
 <script type="text/javascript" src="timer.js"></script>
 <!DOCTYPE html>
@@ -25,9 +26,15 @@
     
 <body class="body">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
 
     <a href="ratusz.php">
@@ -53,6 +60,7 @@
  function wioska_pozycja(id){
     zmiennajava = id;
     document.getElementById("nazmienna_wioska").value = zmiennajava;
+    document.getElementById("kolejne_przejscie").value = 'tworzenie_ataku';
     document.getElementById("wioska_index").submit();
 }
 </script>
@@ -156,13 +164,14 @@ $zmiana=$czas-(int)$pobranyczas;
     </div>
     </div>  
     <br> <br> 
-    <form id="wioska_index" action="tworzenie_ataku.php" method="POST">
+    <form id="wioska_index" action="zdarzenie_cokolwiek.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
 <input type="hidden" name="wioska_Pozycja"  id='nazmienna_wioska' required /><br />
 <script>
 document.getElementById("nazmienna_wioska").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

@@ -24,9 +24,15 @@
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
         <a href="wioska.php">
         <div class="powrot">Powrót</div></a>
@@ -100,30 +106,27 @@ if($rezultat = @$polaczenie->query($pobranyczas))
     $wiersz = $rezultat->fetch_assoc();
    
 }
-$pobranyczas=$wiersz['czas'];
-$czas=time();
-$zmiana=$czas-(int)$pobranyczas;  
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
-$sql = "UPDATE uczestnicy SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
-kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
-czas=$czas WHERE id=$id_uczestnik_zalogowany";
-$polaczenie->query($sql);
- $sql = "SELECT * FROM uczestnicy WHERE id=$id_uczestnik_zalogowany";
- if($rezultat = @$polaczenie->query($sql))
+
+ $sql = "SELECT * FROM budynki";
+ if($rezultat2 = @$polaczenie->query($sql))
  {
      $ilu_userow = $rezultat->num_rows;
-     $wiersz = $rezultat->fetch_assoc();
+     $wiersz_ratusz = $rezultat2->fetch_assoc();
+     $wiersz_gospoda = $rezultat2->fetch_assoc();
+     $wiersz_tartak = $rezultat2->fetch_assoc();
+     $wiersz_kuznia = $rezultat2->fetch_assoc();
+     $wiersz_kamienilom = $rezultat2->fetch_assoc();
+     $wiersz_dom = $rezultat2->fetch_assoc();
+     $wiersz_blok = $rezultat2->fetch_assoc();
+     $wiersz_kosciol = $rezultat2->fetch_assoc();
+     $wiersz_koszary = $rezultat2->fetch_assoc();
+     $wiersz_stajnia = $rezultat2->fetch_assoc();
+     $wiersz_huta = $rezultat2->fetch_assoc();
+     $wiersz_fabryka = $rezultat2->fetch_assoc();
+     $wiersz_lotnisko = $rezultat2->fetch_assoc();
+     $wiersz_uniwersytet = $rezultat2->fetch_assoc();
     
  }
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
  $sql = "SELECT * FROM wojsko WHERE nazwa='Armata' OR nazwa='Czolg' OR nazwa='Mustang' OR nazwa='Dzialolot' 
  OR nazwa='F-35' OR nazwa='Patriot' OR nazwa='NorthropB2' OR nazwa='Tomahawk'";
  if($rezultat2 = @$polaczenie->query($sql))
@@ -140,23 +143,37 @@ $predkosc_zl=$wiersz['predkosc_zl'];
  $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
  if($rezultat3 = @$polaczenie->query($sql))
  {
-     $wioska_jednostki = $rezultat3->fetch_assoc();
+     $wioska_budynki = $rezultat3->fetch_assoc();
+     $pobranyczas=$wioska_budynki['czas'];
+    $czas=time();
+    $zmiana=$czas-(int)$pobranyczas;  
+    $predkosc_zywnosc=$wioska_budynki['predkosc_zywnosc'];
+    $predkosc_drewno=$wioska_budynki['predkosc_drewno'];
+    $predkosc_kamien=$wioska_budynki['predkosc_kamien'];
+    $predkosc_metal=$wioska_budynki['predkosc_metal'];
+    $predkosc_zl=$wioska_budynki['predkosc_zl'];
  }
+
+$sql = "UPDATE wioska SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =drewno+ $zmiana*$predkosc_drewno,
+kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
+czas=$czas WHERE id=$id_wioski";
+@$polaczenie->query($sql);
  $polaczenie->close();
  }
  ?>
 <script>
         window.onload = surowce_odliczac;
-        var zywnosc_liczba = <?php echo $wiersz['zywnosc']; ?>;
-        var drewno_liczba = <?php echo $wiersz['drewno']; ?>;
-        var kamien_liczba = <?php echo $wiersz['kamien']; ?>;
-        var metal_liczba = <?php echo $wiersz['metal']; ?>;
-        var zl_liczba = <?php echo $wiersz['pieniadze']; ?>;
+        var zywnosc_liczba = <?php echo $wioska_budynki['zywnosc']; ?>;
+        var drewno_liczba = <?php echo $wioska_budynki['drewno']; ?>;
+        var kamien_liczba = <?php echo $wioska_budynki['kamien']; ?>;
+        var metal_liczba = <?php echo $wioska_budynki['metal']; ?>;
+        var zl_liczba = <?php echo $wioska_budynki['pieniadze']; ?>;
         var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
         var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
         var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
         var predkosc_metal = <?php echo $predkosc_metal; ?>;
         var predkosc_zl = <?php echo $predkosc_zl; ?>;
+        
     function surowce_odliczac()
         {
             zywnosc_liczba = zywnosc_liczba+predkosc_zywnosc;
@@ -171,6 +188,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
             document.getElementById("zl").innerHTML = zl_liczba ;
             setTimeout("surowce_odliczac()",1000);
         }
+
 </script>
         <div class="surowce">
             <ul class="surowiec">
@@ -192,7 +210,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_mustang['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_mustang['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_mustang['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['mustang']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['mustang']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/Mustang.jpg">
 <div class="koniec"></div>
@@ -204,7 +222,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_f35['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_f35['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_f35['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['F35']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['F35']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/f-35.jpg">
 <div class="koniec"></div>
@@ -216,7 +234,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_northrop['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_northrop['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_northrop['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['northropB2']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['northropB2']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/northrop_b2.jpg">
 <div class="koniec"></div>
@@ -228,7 +246,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
 <div class="jednostka_opis">Atak: <?php echo $wiersz_tomahawk['atak']; ?> punktów</div>
 <div class="jednostka_opis">Obrona: <?php echo $wiersz_tomahawk['obrona']; ?> punktów</div>
 <div class="jednostka_opis">Prędkość: <?php echo $wiersz_tomahawk['predkosc']; ?> km/h</div>
-<div class="jednostka_opis">Ilość: <?php echo $wioska_jednostki['tomahawk']; ?></div>
+<div class="jednostka_opis">Ilość: <?php echo $wioska_budynki['tomahawk']; ?></div>
 </div>
 <img class="jednostka_zdjecie" src="zdjecia/tomahawk.png">
 <div class="koniec"></div>
@@ -236,7 +254,7 @@ $predkosc_zl=$wiersz['predkosc_zl'];
     <br> <br>   
     </div>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022</p>
+            <p><div id="tekst"></div> Filip Sawicki 2023</p>
         </footer>
     
 </body>

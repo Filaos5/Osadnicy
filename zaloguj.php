@@ -1,7 +1,6 @@
 <?php
     session_start();
     require_once "secure.php";
- 
     $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
 
     if($polaczenie->connect_errno!=0)
@@ -29,7 +28,8 @@
             $_SESSION['login']=$login;
             $_SESSION['id_sesji']=$user;
             $_SESSION['mecz_przeslany']=35;
-            header('Location: moje_konto.php');
+            $_SESSION['link']='moje_konto';
+            header('Location: zdarzenie_cokolwiek.php');
         }
         else
         {

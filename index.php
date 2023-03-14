@@ -9,6 +9,8 @@
     else{
     header('Location: logowanie.php');
     }
+    $_SESSION['link']='wioska';
+    $_SESSION['mapa']=1;
 ?>
 <script type="text/javascript" src="timer.js"></script>
 <!DOCTYPE html>
@@ -30,8 +32,7 @@
 
     </Header>
 
-    <a href="moje_konto.php">
-        <div class="powrot">Moje konto</div></a>
+        <div class="powrot" onclick="przejscie(id)" id="moje_konto">Moje konto</div>
         <div class="wylogowanie">
     <h2>
         <?php
@@ -56,19 +57,25 @@
             }
             $_SESSION['alert_nowa_wioska']=0;
         }
+        
     ?>
     </h2>
         </div>
         <br>
         <script>
-            
+  function przejscie(id){
+    zmiennajava = id;
+    console.log ( '#someButton was clicked' );
+    document.getElementById("kolejne_przejscie").value = zmiennajava;
+    document.getElementById("link_nazwa").submit();
+}          
  function wioska_pozycja(id){
     zmiennajava = id;
     document.getElementById("nazmienna_wioska").value = zmiennajava;
+    document.getElementById("kolejne_przejscie").value = 'wioska';
     document.getElementById("wioska_index").submit();
 }
 </script>
-    <h4>SUROWCE</h4>
         <?php
         require_once "secure.php";
  
@@ -108,48 +115,7 @@ if($rezultat = $polaczenie->query($sql))
 $pobranyczas=$wiersz['czas'];
 $czas=time();
 $zmiana=$czas-(int)$pobranyczas;  
-$predkosc_zywnosc=$wiersz['predkosc_zywnosc'];
-$predkosc_drewno=$wiersz['predkosc_drewno'];
-$predkosc_kamien=$wiersz['predkosc_kamien'];
-$predkosc_metal=$wiersz['predkosc_metal'];
-$predkosc_zl=$wiersz['predkosc_zl'];
- ?>
-<script>
-        window.onload = surowce_odliczac;
-        var zywnosc_liczba = <?php echo $wiersz['zywnosc']; ?>;
-        var drewno_liczba = <?php echo $wiersz['drewno']; ?>;
-        var kamien_liczba = <?php echo $wiersz['kamien']; ?>;
-        var metal_liczba = <?php echo $wiersz['metal']; ?>;
-        var zl_liczba = <?php echo $wiersz['pieniadze']; ?>;
-        var predkosc_zywnosc = <?php echo $predkosc_zywnosc; ?>;
-        var predkosc_drewno = <?php echo $predkosc_drewno; ?>;
-        var predkosc_kamien = <?php echo $predkosc_kamien; ?>;
-        var predkosc_metal = <?php echo $predkosc_metal; ?>;
-        var predkosc_zl = <?php echo $predkosc_zl; ?>;
-    function surowce_odliczac()
-        {
-            zywnosc_liczba = zywnosc_liczba+predkosc_zywnosc;
-            drewno_liczba = drewno_liczba+predkosc_drewno;
-            kamien_liczba = kamien_liczba+predkosc_kamien;
-            metal_liczba = metal_liczba+predkosc_metal;
-            zl_liczba = zl_liczba+predkosc_zl;
-            document.getElementById("zywnosc").innerHTML = zywnosc_liczba ;
-            document.getElementById("drewno").innerHTML = drewno_liczba ;
-            document.getElementById("kamien").innerHTML = kamien_liczba ;
-            document.getElementById("metal").innerHTML = metal_liczba ;
-            document.getElementById("zl").innerHTML = zl_liczba ;
-            setTimeout("surowce_odliczac()",1000);
-        }
-</script>
-        <div class="surowce">
-            <ul class="surowiec">
-             <li>   Żywność:<div id="zywnosc"></div></li>
-             <li>   Drewno:<div id="drewno"></div></li>
-             <li>   Kamień:<div id="kamien"></div></li>
-             <li>   Metal:<div id="metal"></div></li>
-             <li>   Złotówki:<div id="zl"></div></li>
-    </ul>
-    </div>
+?>
     <div class="container">
     <h4>MAPA</h4>
     <div class="tabela">
@@ -199,13 +165,19 @@ $predkosc_zl=$wiersz['predkosc_zl'];
     </div>
     </div>  
     <br> <br> 
-    <form id="wioska_index" action="wioska.php" method="POST">
+    <form id="wioska_index" action="zdarzenie_cokolwiek.php" method="POST">
+    <input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
 <input type="hidden" name="wioska_Pozycja"  id='nazmienna_wioska' required /><br />
 <script>
 document.getElementById("nazmienna_wioska").value = zmiennajava;</script>
 </form>
+<form id="link_nazwa" action="zdarzenie_cokolwiek.php" method="POST">
+<input type="hidden" name="kolejne_przejscie"  id='kolejne_przejscie' required /><br />
+<script>
+document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
+</form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

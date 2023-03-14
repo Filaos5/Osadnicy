@@ -9,53 +9,8 @@
     else{
     header('Location: logowanie.php');
     }
-    ?>
-    <script type="text/javascript" src="timer.js"></script>
-    <!DOCTYPE html>
-    <html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Osadnicy</title>
-        <link rel="shortcut icon" href="favicon.png" type="image/png">
-        <link rel="stylesheet" type="text/css" href="style.css">
-    
-    </head>
-    <script>
-function c{
-  alert("Hello! I am an alert box!");
-}
-</script>
-    <body class="body">
-        <Header class="header">
-            <h1 id="naglowek"> Osadnicy</h1>
-    
-        </Header>
-       
-        <a href="index.php">
-            <div class="powrot">Mapa</div></a>
-            <div class="wylogowanie">
-        <h2>
-            <?php
-           if(isset($_SESSION['login'])){
-            echo "Użytkownik  ". $_SESSION['login'];
-            ?>
-            <a href="wyloguj.php">
-                <div class="tilelink2">Wyloguj się
-           </div>
-    
-            </a>
-            <?php
-            }
-        ?>
-        </h2>
-            </div>
-            <br><br>
-            <div id="zegar"></div> 
-            <h4>RAPORT Z BITWY</h4>
-            <?php
-            require_once "secure.php";
+
+    require_once "secure.php";
  
     $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
    
@@ -75,25 +30,12 @@ function c{
     $armata_ilosc=(int)$_POST['armata_ilosc'];
     $czolg_ilosc=(int)$_POST['czolg_ilosc'];
     $karabinmaszynowy_ilosc=(int)$_POST['karabinmaszynowy_ilosc'];
-    $mustang_ilosc=0;
-    $F35_ilosc=0;
-    $northropB2_ilosc=0;
-    $tomahawk_ilosc=0;
-    if(isset($_POST['mustang_ilosc'])){
     $mustang_ilosc=(int)$_POST['mustang_ilosc'];
-    }
-    if(isset($_POST['35_ilosc'])){
     $F35_ilosc=(int)$_POST['F35_ilosc'];
-    }
-    if(isset($_POST['northropB2_ilosc'])){
     $northropB2_ilosc=(int)$_POST['northropB2_ilosc'];
-    }
-    if(isset($_POST['northropB2_ilosc'])){
     $tomahawk_ilosc=(int)$_POST['tomahawk_ilosc'];
-    }
     $id_wioski=$_SESSION['id_wioski'];
     $id_wioski_cel=$_SESSION['wioska_cel'];
-    /*
     echo 'zrodlo '. $id_wioski.' cel '. $id_wioski_cel;
 echo 'miecznik '.$miecznik_ilosc;
 echo 'lucznik '.$lucznik_ilosc;
@@ -108,7 +50,6 @@ echo 'F35 '.$F35_ilosc;
 echo 'northropB2 '.$northropB2_ilosc;
 echo 'tomahawk '.$tomahawk_ilosc;
 echo("<br>");
-*/
 $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
  if($rezultat1 = @$polaczenie->query($sql))
  {
@@ -127,7 +68,6 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski";
  $northropB2_zrodlo=$wioska_zrodlo['northropB2'];
  $tomahawk_zrodlo=$wioska_zrodlo['tomahawk'];
  $id_uczestnika=$wioska_zrodlo['id_uczestnika'];
- /*
 echo 'miecznik '.$miecznik_zrodlo;
 echo 'lucznik '.$lucznik_zrodlo;
 echo 'kawalerzysta '.$kawalerzysta_zrodlo;
@@ -143,7 +83,6 @@ echo 'tomahawk '.$tomahawk_zrodlo;
 echo 'uczestnik '.$id_uczestnika;
 echo("<br>");
 echo 'uczestnik '.$id_uczestnika. ' <br>';
-*/
 $sql = "SELECT * FROM wioska WHERE id=$id_wioski_cel";
  if($rezultat2 = @$polaczenie->query($sql))
  {
@@ -157,28 +96,15 @@ $sql = "SELECT * FROM wioska WHERE id=$id_wioski_cel";
  $armata_cel=$wioska_cel['armata'];
  $czolg_cel=$wioska_cel['czolg'];
  $karabinmaszynowy_cel=$wioska_cel['karabinmaszynowy'];
- if($wioska_cel['lotnisko']==1){
  $mustang_cel=$wioska_cel['mustang'];
- }
  $dzialolot_cel=$wioska_cel['dzialolot'];
- if($wioska_cel['lotnisko']==1){
  $F35_cel=$wioska_cel['F35'];
- }
  $patriot_cel=$wioska_cel['patriot'];
- if($wioska_cel['lotnisko']==1){
  $northropB2_cel=$wioska_cel['northropB2'];
  $tomahawk_cel=$wioska_cel['tomahawk'];
- }
- if($wioska_cel['lotnisko']==0){
-  $mustang_cel=0;
-  $F35_cel=0;
-  $northropB2_cel=0;
-  $tomahawk_cel=0;
- }
  $cywile_cel=$wioska_cel['cywile'];
  $morale=$wioska_cel['morale'];
  $id_uczestnik_atakowany=$wioska_cel['id_uczestnika'];
- /*
 echo 'miecznik '.$miecznik_cel;
 echo 'lucznik '.$lucznik_cel;
 echo 'kawalerzysta '.$kawalerzysta_cel;
@@ -196,222 +122,20 @@ echo 'tomahawk '.$tomahawk_cel;
 echo 'cywile '.$cywile_cel;
 echo 'morale '.$morale. ' <br>';
 echo 'uczestnik_atakowany '.$id_uczestnik_atakowany. ' <br>';
-*/
-
 $sql = "SELECT * FROM morale WHERE id=$morale";
 if($rezultat3 = @$polaczenie->query($sql))
 {
     $morale_cel = $rezultat3->fetch_assoc();
 }
 $morale_wartosc=$morale_cel['poziom'];
-//echo 'morale wartosc '.$morale_wartosc;
+echo 'morale wartosc '.$morale_wartosc;
 if( $miecznik_ilosc<=$miecznik_zrodlo && $lucznik_ilosc<=$lucznik_zrodlo && $kawalerzysta_ilosc<=$kawalerzysta_zrodlo
 && $lucznikkon_ilosc<=$lucznikkon_zrodlo && $karabin_ilosc<=$karabin_zrodlo && $armata_ilosc<=$armata_zrodlo
 && $czolg_ilosc<=$czolg_zrodlo && $karabinmaszynowy_ilosc<=$karabinmaszynowy_zrodlo && $mustang_ilosc<=$mustang_zrodlo
-&& $F35_ilosc<=$F35_zrodlo && $northropB2_ilosc<=$northropB2_zrodlo && $tomahawk_ilosc<=$tomahawk_zrodlo &&
-$miecznik_ilosc>=0 && $lucznik_ilosc>=0 && $kawalerzysta_ilosc>=0
-&& $lucznikkon_ilosc>=0 && $karabin_ilosc>=0 && $armata_ilosc>=0
-&& $czolg_ilosc>=0 && $karabinmaszynowy_ilosc>=0 && $mustang_ilosc>=0
-&& $F35_ilosc>=0 && $northropB2_ilosc>=0 && $tomahawk_ilosc>=0){
- // echo("<br>");
- // echo 'wyslano';
- // echo("<br>");
- ?>
-<h4>W bitwie wzięło udział</h4>
-<div class="tabela_bitwa">
-<div class="jednostka_ramka">
-</div>
-<div class="jednostka_ramka">
-Atakujący
-</div>
-<div class="jednostka_ramka">
-Obrońca
-</div>
-<div class="jednostka_ramka">
-Miecznik
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $miecznik_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $miecznik_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Łucznik
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznik_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznik_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Kawalerzysta
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $kawalerzysta_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $kawalerzysta_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Łucznik konny
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznikkon_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznikkon_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Żołnierz z karabinem
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabin_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabin_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Armata
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $armata_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $armata_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Czołg
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $czolg_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $czolg_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Żołnież z karabinem maszynowym
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabinmaszynowy_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabinmaszynowy_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Mustang
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $mustang_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $mustang_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Działo przeciwlotnicze
-</div>
-<div class="jednostka_ramka">
--
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $dzialolot_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-F-35
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $F35_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $F35_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Patriot
-</div>
-<div class="jednostka_ramka">
--
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $patriot_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-NorthropB2
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $northropB2_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $northropB2_cel;
-?>
-</div>
-<div class="jednostka_ramka">
-Tomahawk
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $tomahawk_ilosc;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $tomahawk_cel;
-?>
-</div>
-<div class="koniec">
-</div>
-</div>
-
-
-
-<?php
+&& $F35_ilosc<=$F35_zrodlo && $northropB2_ilosc<=$northropB2_zrodlo && $tomahawk_ilosc<=$tomahawk_zrodlo){
+  echo("<br>");
+  echo 'wyslano';
+  echo("<br>");
   $sql = "SELECT atak, obrona FROM wojsko";
   if($rezultat = @$polaczenie->query($sql))
   {
@@ -471,7 +195,7 @@ echo $tomahawk_cel;
       $tomahawk_atak=$wojsko_sila['atak'];
       $tomahawk_obrona=$wojsko_sila['obrona'];
   }
-/*
+
   echo 'miecznik_atak '.$miecznik_atak.' miecznik_obrona '.$miecznik_obrona. ' <br>';
   echo 'lycznik_atak '.$lucznik_atak.' lucznik_obrona '.$lucznik_obrona. ' <br>';
   echo 'kawalerzysta_atak '.$kawalerzysta_atak.' kawalerzysta_obrona '.$kawalerzysta_obrona. ' <br>';
@@ -486,7 +210,7 @@ echo $tomahawk_cel;
   echo 'patriot_atak '.$patriot_atak.' patriot_obrona '.$patriot_obrona. ' <br>';
   echo 'northropB2_atak '.$northropB2_atak.' northropB2_obrona '.$northropB2_obrona. ' <br>';
   echo 'tomahawk_atak '.$tomahawk_atak.' tomahawk_obrona '.$tomahawk_obrona. ' <br>';
-*/
+
   $miecznik_atak_sila=$miecznik_atak*$miecznik_ilosc;
   $lucznik_atak_sila=$lucznik_atak*$lucznik_ilosc;
   $kawalerzysta_atak_sila=$kawalerzysta_atak*$kawalerzysta_ilosc;
@@ -500,7 +224,7 @@ echo $tomahawk_cel;
   $northropB2_atak_sila=$northropB2_atak*$northropB2_ilosc;
   $tomahawk_atak_sila=$tomahawk_atak*$tomahawk_ilosc;
   $ladowy_atak_sila=$miecznik_atak_sila+$lucznik_atak_sila+$kawalerzysta_atak_sila+$lucznikkon_atak_sila+$karabin_atak_sila+$armata_atak_sila+$czolg_atak_sila+$karabinmaszynowy_atak_sila;
-  //echo 'atak ladowy '.$ladowy_atak_sila. ' <br>';
+  echo 'atak ladowy '.$ladowy_atak_sila. ' <br>';
   $powietrzny_atak_sila=$mustang_atak_sila+$F35_atak_sila+$northropB2_atak_sila+$tomahawk_atak_sila;
   echo 'atak powietrzny '.$powietrzny_atak_sila. ' <br>';
 
@@ -528,33 +252,22 @@ echo $tomahawk_cel;
     if($przeciwlotnicza_obrona_sila>0){
   $bitwa_przeciwlotnicza=$powietrzny_atak_sila/$przeciwlotnicza_obrona_sila;
   $bitwa_przeciwlotnicza=$bitwa_przeciwlotnicza*$bitwa_przeciwlotnicza;
-//  echo $bitwa_przeciwlotnicza. 'bitwa_przeciwlotnicza <br>';
+  echo $bitwa_przeciwlotnicza. 'bitwa_przeciwlotnicza <br>';
   $mustang_ilosc_nowa=round($mustang_ilosc-$mustang_ilosc/$bitwa_przeciwlotnicza);
   $F35_ilosc_nowa=round($F35_ilosc-$F35_ilosc/$bitwa_przeciwlotnicza);
   $northropB2_ilosc_nowa=round($northropB2_ilosc-$northropB2_ilosc/$bitwa_przeciwlotnicza);
   $tomahawk_ilosc_nowa=round($tomahawk_ilosc-$tomahawk_ilosc/$bitwa_przeciwlotnicza);
-  }
-if($przeciwlotnicza_obrona_sila==0){
-  $mustang_ilosc_nowa=$mustang_ilosc;
+  }}
+  else{
+    $mustang_ilosc_nowa=$mustang_ilosc;
     $F35_ilosc_nowa=$F35_ilosc;
     $northropB2_ilosc_nowa=$northropB2_ilosc;
     $tomahawk_ilosc_nowa=$tomahawk_ilosc;
-}
-}
-  else{
-    $mustang_ilosc_nowa=0;
-    $F35_ilosc_nowa=0;
-    $northropB2_ilosc_nowa=0;
-    $tomahawk_ilosc_nowa=0;
   }
-  echo $mustang_ilosc;
-  echo $northropB2_ilosc;
-  /*
   echo $mustang_ilosc_nowa. ' mustang <br>';
   echo $F35_ilosc_nowa. ' f35 <br>';
   echo $northropB2_ilosc_nowa. ' northrop <br>';
   echo $tomahawk_ilosc_nowa. ' tomahawk <br>';
-  */
   $mustang_atak_sila=$mustang_atak*$mustang_ilosc_nowa;
   $F35_atak_sila=$F35_atak*$F35_ilosc_nowa;
   $northropB2_atak_sila=$northropB2_atak*$northropB2_ilosc_nowa;
@@ -568,7 +281,7 @@ if($przeciwlotnicza_obrona_sila==0){
     if($powietrzny_atak_sila>0){
     $bitwa_przeciwlotnicza2=$przeciwlotnicza_obrona_sila/$powietrzny_atak_sila;
     $bitwa_przeciwlotnicza2=$bitwa_przeciwlotnicza2*$bitwa_przeciwlotnicza2;
- //   echo $bitwa_przeciwlotnicza2. ' <br>';
+    echo $bitwa_przeciwlotnicza2. ' <br>';
     $patriot_cel_nowa=round($patriot_cel-$patriot_cel/$bitwa_przeciwlotnicza2);
     $dzialolot_cel_nowa=round($dzialolot_cel-$dzialolot_cel/$bitwa_przeciwlotnicza2);
     }
@@ -577,39 +290,39 @@ if($przeciwlotnicza_obrona_sila==0){
       $dzialolot_cel_nowa=$dzialolot_cel;
     }
   }
- //   echo $patriot_cel_nowa. ' patriot <br>';
- //   echo $dzialolot_cel_nowa. ' dzialolot <br>';
+    echo $patriot_cel_nowa. ' patriot <br>';
+    echo $dzialolot_cel_nowa. ' dzialolot <br>';
     $dzialolot_obrona_sila=$dzialolot_obrona*$dzialolot_cel_nowa;
     $patriot_obrona_sila=$patriot_obrona*$patriot_cel_nowa;
     $przeciwlotnicza_obrona_sila=$dzialolot_obrona_sila+$patriot_obrona_sila;
- //   echo 'atak powietrzny '.$powietrzny_atak_sila. ' <br>';
- //   echo 'obrona powetrzna '.$powietrzna_obrona_sila. ' <br>';
+    echo 'atak powietrzny '.$powietrzny_atak_sila. ' <br>';
+    echo 'obrona powetrzna '.$powietrzna_obrona_sila. ' <br>';
     if($powietrzna_obrona_sila>0 && $powietrzny_atak_sila>0){
       $powietrzna_obrona_sila=$powietrzna_obrona_sila*$morale_wartosc;
       if($powietrzny_atak_sila>$powietrzna_obrona_sila){
-//        echo 'mocny atak <br>';
+        echo 'mocny atak <br>';
         $mustang_cel_nowa=0;
         $F35_cel_nowa=0;
         $northropB2_cel_nowa=0;
         $tomahawk_cel_nowa=0;
- //       echo $F35_cel_nowa. ' f35 cel<br>';
+        echo $F35_cel_nowa. ' f35 cel<br>';
         $bitwa_lotnicza=$powietrzny_atak_sila/$powietrzna_obrona_sila;
         $bitwa_lotnicza=$bitwa_lotnicza*$bitwa_lotnicza;
- //       echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
+        echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
         $mustang_ilosc_nowa=round($mustang_ilosc_nowa-$mustang_ilosc_nowa/$bitwa_lotnicza);
         $F35_ilosc_nowa=round($F35_ilosc_nowa-$F35_ilosc_nowa/$bitwa_lotnicza);
         $northropB2_ilosc_nowa=round($northropB2_ilosc_nowa-$northropB2_ilosc_nowa/$bitwa_lotnicza);
         $tomahawk_ilosc_nowa=round($tomahawk_ilosc_nowa-$tomahawk_ilosc_nowa/$bitwa_lotnicza);
       }
       if($powietrzny_atak_sila<$powietrzna_obrona_sila){
-    //    echo 'mocna obrona <br>';
+        echo 'mocna obrona <br>';
         $mustang_ilosc_nowa=0;
         $F35_ilosc_nowa=0;
         $northropB2_ilosc_nowa=0;
         $tomahawk_ilosc_nowa=0;
         $bitwa_lotnicza=$powietrzna_obrona_sila/$powietrzny_atak_sila;
         $bitwa_lotnicza=$bitwa_lotnicza*$bitwa_lotnicza;
-   //     echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
+        echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
         $mustang_cel_nowa=round($mustang_cel-$mustang_cel/$bitwa_lotnicza);
         $F35_cel_nowa=round($F35_cel-$F35_cel/$bitwa_lotnicza);
         $northropB2_cel_nowa=round($northropB2_cel-$northropB2_cel/$bitwa_lotnicza);
@@ -632,7 +345,6 @@ if($przeciwlotnicza_obrona_sila==0){
       $northropB2_ilosc_nowa=0;
       $tomahawk_ilosc_nowa=0;
     }
-    /*
       echo $mustang_ilosc_nowa. ' mustang <br>';
       echo $F35_ilosc_nowa. ' f35 <br>';
       echo $northropB2_ilosc_nowa. ' northrop <br>';
@@ -642,36 +354,35 @@ if($przeciwlotnicza_obrona_sila==0){
       echo $northropB2_cel_nowa. ' northrop cel<br>';
       echo $tomahawk_cel_nowa. ' tomahawk cel <br>';
       echo 'po bitwie lotniczej <br>';
-      */
       $mustang_atak_sila=$mustang_ilosc_nowa*$mustang_atak;
       $F35_atak_sila=$F35_ilosc_nowa*$F35_atak;
       $northropB2_atak_sila=$northropB2_ilosc_nowa*$northropB2_atak;
       $tomahawk_atak_sila=$tomahawk_ilosc_nowa*$tomahawk_atak;
       $powietrzny_atak_sila=$mustang_atak_sila+$F35_atak_sila+$northropB2_atak_sila+$tomahawk_atak_sila;
-  //    echo 'atak powietrzny '.$powietrzny_atak_sila. ' <br>';
+      echo 'atak powietrzny '.$powietrzny_atak_sila. ' <br>';
      
       if($przeciwlotnicza_obrona_sila>0 && $powietrzny_atak_sila>0){
         if($powietrzny_atak_sila>$przeciwlotnicza_obrona_sila){
-    //      echo 'mocny atak <br>';
+          echo 'mocny atak <br>';
           $patriot_cel_nowa=0;
           $dzialolot_cel_nowa=0;
           $bitwa_przeciwlotnicza=$powietrzny_atak_sila/$przeciwlotnicza_obrona_sila;
           $bitwa_przeciwlotnicza=$bitwa_przeciwlotnicza*$bitwa_przeciwlotnicza;
-       //   echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
+          echo $bitwa_lotnicza. 'bitwa_lotnicza <br>';
           $mustang_ilosc_nowa=round($mustang_ilosc_nowa-$mustang_ilosc_nowa/$bitwa_przeciwlotnicza);
           $F35_ilosc_nowa=round($F35_ilosc_nowa-$F35_ilosc_nowa/$bitwa_przeciwlotnicza);
           $northropB2_ilosc_nowa=round($northropB2_ilosc_nowa-$northropB2_ilosc_nowa/$bitwa_przeciwlotnicza);
           $tomahawk_ilosc_nowa=round($tomahawk_ilosc_nowa-$tomahawk_ilosc_nowa/$bitwa_przeciwlotnicza);
         }
         if($powietrzny_atak_sila<$przeciwlotnicza_obrona_sila){
-    //      echo 'mocna obrona <br>';
+          echo 'mocna obrona <br>';
           $mustang_ilosc_nowa=0;
           $F35_ilosc_nowa=0;
           $northropB2_ilosc_nowa=0;
           $tomahawk_ilosc_nowa=0;
           $bitwa_przeciwlotnicza=$przeciwlotnicza_obrona_sila/$powietrzny_atak_sila;
           $bitwa_przeciwlotnicza=$bitwa_przeciwlotnicza*$bitwa_przeciwlotnicza;
-    //      echo $bitwa_przeciwlotnicza. 'bitwa_przeciwlotnicza <br>';
+          echo $bitwa_przeciwlotnicza. 'bitwa_przeciwlotnicza <br>';
           $patriot_cel_nowa=round($patriot_cel-$patriot_cel/$bitwa_przeciwlotnicza);
           $dzialolot_cel_nowa=round($dzialolot_cel-$dzialolot_cel/$bitwa_przeciwlotnicza);
         }
@@ -684,20 +395,19 @@ if($przeciwlotnicza_obrona_sila==0){
         $northropB2_ilosc_nowa=0;
         $tomahawk_ilosc_nowa=0;
       }
-      /*
       echo $mustang_ilosc_nowa. ' mustang <br>';
       echo $F35_ilosc_nowa. ' f35 <br>';
       echo $northropB2_ilosc_nowa. ' northrop <br>';
       echo $tomahawk_ilosc_nowa. ' tomahawk <br>';
       echo $patriot_cel_nowa. ' patriot cel<br>';
       echo $dzialolot_cel_nowa. ' dzialolot cel<br>';
-*/
+
 
       if($ladowa_obrona_sila>0 && $ladowy_atak_sila>0){
-  //      echo ' bitwa lądowa<br>';
+        echo ' bitwa lądowa<br>';
         $ladowa_obrona_sila=$ladowa_obrona_sila*$morale_wartosc;
         if($ladowy_atak_sila>$ladowa_obrona_sila){
-     //     echo 'mocny atak <br>';
+          echo 'mocny atak <br>';
           $miecznik_cel_nowa=0;
           $lucznik_cel_nowa=0;
           $kawalerzysta_cel_nowa=0;
@@ -708,7 +418,7 @@ if($przeciwlotnicza_obrona_sila==0){
           $karabinmaszynowy_cel_nowa=0;
           $bitwa_ladowa=$ladowy_atak_sila/$ladowa_obrona_sila;
           $bitwa_ladowa=$bitwa_ladowa*$bitwa_ladowa;
-       //   echo $bitwa_ladowa. 'bitwa_ladowa <br>';
+          echo $bitwa_ladowa. 'bitwa_ladowa <br>';
           $miecznik_ilosc_nowa=round($miecznik_ilosc-$miecznik_ilosc/$bitwa_ladowa);
           $lucznik_ilosc_nowa=round($lucznik_ilosc-$lucznik_ilosc/$bitwa_ladowa);
           $kawalerzysta_ilosc_nowa=round($kawalerzysta_ilosc-$kawalerzysta_ilosc/$bitwa_ladowa);
@@ -719,7 +429,7 @@ if($przeciwlotnicza_obrona_sila==0){
           $karabinmaszynowy_ilosc_nowa=round($karabinmaszynowy_ilosc-$karabinmaszynowy_ilosc/$bitwa_ladowa);
         }
         if($ladowy_atak_sila<$ladowa_obrona_sila){
-      //   echo 'mocna obrona <br>';
+          echo 'mocna obrona <br>';
           $miecznik_ilosc_nowa=0;
           $lucznik_ilosc_nowa=0;
           $kawalerzysta_ilosc_nowa=0;
@@ -730,7 +440,7 @@ if($przeciwlotnicza_obrona_sila==0){
           $karabinmaszynowy_ilosc_nowa=0;
           $bitwa_ladowa=$ladowa_obrona_sila/$ladowy_atak_sila;
           $bitwa_ladowa=$bitwa_ladowa*$bitwa_ladowa;
-      //    echo $bitwa_ladowa. 'bitwa_ladowa <br>';
+          echo $bitwa_ladowa. 'bitwa_ladowa <br>';
           $miecznik_cel_nowa=round($miecznik_cel-$miecznik_cel/$bitwa_ladowa);
           $lucznik_cel_nowa=round($lucznik_cel-$lucznik_cel/$bitwa_ladowa);
           $kawalerzysta_cel_nowa=round($kawalerzysta_cel-$kawalerzysta_cel/$bitwa_ladowa);
@@ -777,7 +487,6 @@ if($przeciwlotnicza_obrona_sila==0){
         $czolg_cel_nowa=0;
         $karabinmaszynowy_cel_nowa=0;
       }
-      /*
       echo $miecznik_ilosc_nowa. ' miecznik <br>';
       echo $lucznik_ilosc_nowa. ' lucznik <br>';
       echo $kawalerzysta_ilosc_nowa. ' kawalerzysta <br>';
@@ -795,7 +504,6 @@ if($przeciwlotnicza_obrona_sila==0){
       echo $czolg_cel_nowa. ' czolg cel<br>';
       echo $karabinmaszynowy_cel_nowa. ' karabinmaszynowy cel<br>';
       echo 'po bitwie ladowej <br>';
-      */
       $mustang_atak_sila=$mustang_ilosc_nowa*$mustang_atak;
       $F35_atak_sila=$F35_ilosc_nowa*$F35_atak;
       $northropB2_atak_sila=$northropB2_ilosc_nowa*$northropB2_atak;
@@ -834,7 +542,7 @@ if($przeciwlotnicza_obrona_sila==0){
       $obronca_wygrany=1;
       $bitwa_ladowo_lotnicza=$powietrzny_atak_sila/$ladowa_obrona_sila;
       $bitwa_ladowo_lotnicza=$bitwa_ladowo_lotnicza*$bitwa_ladowo_lotnicza;
-    //  echo $bitwa_ladowo_lotnicza. 'bitwa lotnictwa atak i ladowej obrony <br>';
+      echo $bitwa_ladowo_lotnicza. 'bitwa lotnictwa atak i ladowej obrony <br>';
       $miecznik_cel_nowa=round($miecznik_cel_nowa-$miecznik_cel_nowa/$bitwa_ladowo_lotnicza);
       $lucznik_cel_nowa=round($lucznik_cel_nowa-$lucznik_cel_nowa/$bitwa_ladowo_lotnicza);
       $kawalerzysta_cel_nowa=round($kawalerzysta_cel_nowa-$kawalerzysta_cel_nowa/$bitwa_ladowo_lotnicza);
@@ -846,7 +554,7 @@ if($przeciwlotnicza_obrona_sila==0){
     }
     if($ladowa_obrona_sila<=$powietrzny_atak_sila){
       $obronca_wygrany=0;
-   //   echo 'bitwa lotnictwa atak i ladowej obrony <br>';
+      echo 'bitwa lotnictwa atak i ladowej obrony <br>';
       $miecznik_cel_nowa=0;
       $lucznik_cel_nowa=0;
       $kawalerzysta_cel_nowa=0;
@@ -863,7 +571,7 @@ if($przeciwlotnicza_obrona_sila==0){
       $obronca_wygrany=0;
       $bitwa_ladowo_lotnicza=$ladowy_atak_sila/$powietrzna_obrona_sila;
       $bitwa_ladowo_lotnicza=$bitwa_ladowo_lotnicza*$bitwa_ladowo_lotnicza;
-     // echo $bitwa_ladowo_lotnicza. 'bitwa lodowy atak i obrona lotnicza <br>';
+      echo $bitwa_ladowo_lotnicza. 'bitwa lodowy atak i obrona lotnicza <br>';
       $mustang_cel_nowa=0;
       $F35_cel_nowa=0;
       $northropB2_cel_nowa=0;
@@ -879,7 +587,7 @@ if($przeciwlotnicza_obrona_sila==0){
     }
     if($powietrzna_obrona_sila>=$ladowy_atak_sila){
       $obronca_wygrany=1;
-    //  echo $bitwa_ladowo_lotnicza. 'bitwa lodowy atak i obrona lotnicza <br>';
+      echo $bitwa_ladowo_lotnicza. 'bitwa lodowy atak i obrona lotnicza <br>';
       $miecznik_ilosc_nowa=0;
       $lucznik_ilosc_nowa=0;
       $kawalerzysta_ilosc_nowa=0;
@@ -946,40 +654,33 @@ if($przeciwlotnicza_obrona_sila==0){
     $F35_straty=$F35_ilosc-$F35_ilosc_nowa;
     $northropB2_straty=$northropB2_ilosc-$northropB2_ilosc_nowa;
     $tomahawk_straty=$tomahawk_ilosc-$tomahawk_ilosc_nowa;
-    if($obronca_wygrany==1){
-      ?>
-      <h4>Obrońca wygrany</h4>
-      <?php 
-    }
-    $sql = "UPDATE wioska SET miecznik=miecznik-$miecznik_straty, lucznik=lucznik-$lucznik_straty,
-    kawalerzysta=kawalerzysta-$kawalerzysta_straty, lucznikkon=lucznikkon-$lucznikkon_straty, karabin=karabin-$karabin_straty,
-    armata=armata-$armata_straty, czolg=czolg-$czolg_straty, karabinmaszynowy=karabinmaszynowy-$karabinmaszynowy_straty,
-    mustang=mustang-$mustang_straty, F35=F35-$F35_straty, northropB2=northropB2-$northropB2_straty, 
-    tomahawk=tomahawk-$tomahawk_straty WHERE id=$id_wioski";
-  $polaczenie->query($sql);
-    $sql = "UPDATE wioska SET miecznik=$miecznik_cel_nowa, lucznik=$lucznik_cel_nowa,
-    kawalerzysta=$kawalerzysta_cel_nowa, lucznikkon=$lucznikkon_cel_nowa, karabin=$karabin_cel_nowa,
-    armata=$armata_cel_nowa, czolg=$czolg_cel_nowa, karabinmaszynowy=$karabinmaszynowy_cel_nowa,
-    mustang=$mustang_cel_nowa, F35=$F35_cel_nowa, northropB2=$northropB2_cel_nowa, 
-    tomahawk=$tomahawk_cel_nowa WHERE id=$id_wioski_cel";
-  $polaczenie->query($sql);
+    
+
     if($obronca_wygrany==0){
-      ?>
-      <h4>Ataktujacy wygrany</h4>
-      <?php 
       $cywile_sila=$cywile_cel*10;
       $sila_koniec=$powietrzny_atak_sila+$ladowy_atak_sila;
-      //echo $cywile_sila.' cywile sila <br>';
-      //echo $sila_koniec.' sila koniec <br>';
+      echo $cywile_sila.' cywile sila <br>';
+      echo $sila_koniec.' sila koniec <br>';
       if($cywile_sila<$sila_koniec){
         $morale=0;
-       // echo 'wyzerowano morale <br>';
+        echo 'wyzerowano morale <br>';
       }
-     // echo 'cywile '.$cywile_cel.'<br>';
-
-      if($morale<1){
+      echo 'cywile '.$cywile_cel.'<br>';
+      if($morale==0){
         $sql = "UPDATE wioska SET id_uczestnika=$id_uczestnika WHERE id=$id_wioski_cel";
         $polaczenie->query($sql);
+        $sql = "UPDATE wioska SET miecznik=miecznik-$miecznik_straty, lucznik=lucznik-$lucznik_straty,
+        kawalerzysta=kawalerzysta-$kawalerzysta_straty, lucznikkon=lucznikkon-$lucznikkon_straty, karabin=karabin-$karabin_straty,
+        armata=armata-$armata_straty, czolg=czolg-$czolg_straty, karabinmaszynowy=karabinmaszynowy-$karabinmaszynowy_straty,
+        mustang=mustang-$mustang_straty, F35=F35-$F35_straty, northropB2=northropB2-$northropB2_straty, 
+        tomahawk=tomahawk-$tomahawk_straty WHERE id=$id_wioski";
+      $polaczenie->query($sql);
+        $sql = "UPDATE wioska SET miecznik=$miecznik_cel_nowa, lucznik=$lucznik_cel_nowa,
+        kawalerzysta=$kawalerzysta_cel_nowa, lucznikkon=$lucznikkon_cel_nowa, karabin=$karabin_cel_nowa,
+        armata=$armata_cel_nowa, czolg=$czolg_cel_nowa, karabinmaszynowy=$karabinmaszynowy_cel_nowa,
+        mustang=$mustang_cel_nowa, F35=$F35_cel_nowa, northropB2=$northropB2_cel_nowa, 
+        tomahawk=$tomahawk_cel_nowa WHERE id=$id_wioski_cel";
+      $polaczenie->query($sql);
   $sql = "SELECT * FROM wioska WHERE mecz=$id_meczu AND id_uczestnika=$id_uczestnik_atakowany";
   if($rezultat = $polaczenie->query($sql))
       {
@@ -1045,235 +746,19 @@ if($ile_wiosek>0){
       $polaczenie->query($sql);
     }  
     }
-      if($morale>1){
+      if($morale>0){
         $morale=$morale-1;
-        $sql = "UPDATE wioska SET morale=$morale WHERE id=$id_wioski_cel";
-      $polaczenie->query($sql);
-      }
-      if($morale<1){
-        $morale=1;
-        $sql = "UPDATE wioska SET morale=$morale WHERE id=$id_wioski_cel";
-      $polaczenie->query($sql);
       }
     }
-    //echo $obronca_wygrany. ' wynik (1 oznacza wygrał obrońca) <br>';
-    //echo $morale. ' morale po bitwie <br>';
+    echo $obronca_wygrany. ' wynik (1 oznacza wygrał obrońca) <br>';
+    echo $morale. ' morale po bitwie <br>';
 }
-else{
-  echo('Location: ratusz.php');
-  $_SESSION['atak_jednostki_malo']=1;
-  header('Location: ratusz.php');
-}
-
-
-
 $polaczenie->close();
     }
     //header('Location: ratusz.php');
 
 ?>
 
-<h4>Po bitwie zostało</h4>
-<div class="tabela_bitwa">
-<div class="jednostka_ramka">
-</div>
-<div class="jednostka_ramka">
-Atakujący
-</div>
-<div class="jednostka_ramka">
-Obrońca
-</div>
-<div class="jednostka_ramka">
-Miecznik
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $miecznik_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $miecznik_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Łucznik
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznik_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznik_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Kawalerzysta
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $kawalerzysta_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $kawalerzysta_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Łucznik konny
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznikkon_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $lucznikkon_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Żołnież z karabinem
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabin_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabin_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Armata
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $armata_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $armata_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Czołg
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $czolg_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $czolg_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Żołnież z karabinem maszynowym
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabinmaszynowy_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $karabinmaszynowy_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Mustang
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $mustang_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $mustang_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Działo przeciwlotnicze
-</div>
-<div class="jednostka_ramka">
--
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $dzialolot_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-F-35
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $F35_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $F35_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Patriot
-</div>
-<div class="jednostka_ramka">
--
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $patriot_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-NorthropB2
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $northropB2_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $northropB2_cel_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-Tomahawk
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $tomahawk_ilosc_nowa;
-?>
-</div>
-<div class="jednostka_ramka">
-<?php
-echo $tomahawk_cel_nowa;
-?>
-</div>
-<div class="koniec">
-</div>
-</div>
-<br>
-<a href="ratusz.php">
-    <div class=tworzenie> Powrót do ratusza</div>
-    </a>
-    <br>
 
-<footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
-        </footer>
-    
-</body>
 
-</html>
+

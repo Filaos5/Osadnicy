@@ -1,6 +1,6 @@
 @media all and (min-width:2000px){
 .body{
-    background-color: rgb(249, 242, 111);
+    background-color: rgb(130, 255, 182);
     font-family: Arial;
     height: 100vh;
     margin: 0px;
@@ -28,7 +28,36 @@ position: relative;
 .tresc{
     background-color: rgb(0, 255, 98);
 }
-
+.na_tle{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    background-color: rgba(7, 131, 189, 0.5);
+    height: 440px;
+    float:left;
+}
+.na_tle_tekst{
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding: 0px;
+    height:440px;
+    float:left;
+}
+.zdjecie_tlo {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+.tlo {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 200px;
+    background: #CFD5DE url(zdjecia/niebo.jpg) no-repeat center center fixed;
+    background-size:cover
+}
 .header {
     /*background-color: rgb(216, 32, 25); */
     background-image: linear-gradient(to top, #97f3ff 0%, #0fe6e6 100%);
@@ -36,7 +65,7 @@ position: relative;
     text-align: center;
     margin-left: 0;
     margin-right:0;
-    padding: 20px;
+    padding: 0px;
     margin-top: 0px;
     font-size: 40px;
     height: 200px;
@@ -80,12 +109,18 @@ h4{
     background-color: white;
     
 }
+.powrot:hover{
+    background-color: rgb(210, 248, 128);
+}
 .tilelink2{
     background-color: white;
     text-decoration: none;
     float: right;
     margin-left: 10px;
     color: rgb(16, 221, 64);
+}
+.tilelink2:hover{
+    background-color: rgb(210, 248, 128);
 }
 .surowce{
     background-color: rgb(205, 243, 248); 
@@ -315,6 +350,9 @@ h4{
     padding-left: 50px;
     margin-top: 40px;
 }
+.budynek:hover{
+    background-color: rgb(201, 249, 112);
+}
 
 .budynek_budowa{
     width: 100%-50px;
@@ -526,7 +564,9 @@ h4{
     margin-right: auto;
     text-decoration: none;
 }
-
+.tworzenie:hover{
+    background-color: rgb(210, 248, 128);
+}
 .mecz{
     color: rgb(42, 165, 50);
     width: 30%;
@@ -679,7 +719,7 @@ a {
 
 @media all and (min-width:1000px) and (max-width:1999px){
     .body{
-        background-color: rgb(249, 242, 111);
+        background-color: rgb(130, 255, 182);
         font-family: Arial;
         height: 100vh;
         margin: 0px;
@@ -707,7 +747,36 @@ a {
     .tresc{
         background-color: rgb(0, 255, 98);
     }
-    
+    .na_tle{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        background-color: rgba(7, 131, 189, 0.5);
+        height: 440px;
+        float:left;
+    }
+    .na_tle_tekst{
+        margin-left: 50px;
+        margin-right: 0px;
+        margin-top: 0px;
+        padding: 0px;
+        height:440px;
+        float:left;
+    }
+    .zdjecie_tlo {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .tlo {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 200px;
+        background: #CFD5DE url(zdjecia/niebo.jpg) no-repeat center center fixed;
+        background-size:cover
+    }
     .header {
         /*background-color: rgb(216, 32, 25); */
         background-image: linear-gradient(to top, #97f3ff 0%, #0fe6e6 100%);
@@ -715,7 +784,7 @@ a {
         text-align: center;
         margin-left: 0;
         margin-right:0;
-        padding: 20px;
+        padding: 0px;
         margin-top: 0px;
         font-size: 30px;
         height: 200px;
@@ -759,12 +828,18 @@ a {
         background-color: white;
         
     }
+    .powrot:hover{
+        background-color: rgb(210, 248, 128);
+    }
     .tilelink2{
         background-color: white;
         text-decoration: none;
         float: right;
         margin-left: 10px;
         color: rgb(16, 221, 64);
+    }
+    .tilelink2:hover{
+        background-color: rgb(210, 248, 128);
     }
     .surowce{
         background-color: rgb(205, 243, 248); 
@@ -998,7 +1073,9 @@ a {
         padding-left: 50px;
         margin-top: 40px;
     }
-    
+    .budynek:hover{
+        background-color: rgb(201, 249, 112);
+    }
     .budynek_budowa{
         width: 100%-50px;
         background-color: rgb(189, 244, 215);
@@ -1217,7 +1294,9 @@ a {
         margin-right: auto;
         text-decoration: none;
     }
-    
+    .tworzenie:hover{
+        background-color: rgb(210, 248, 128);
+    }
     .mecz{
         color: rgb(42, 165, 50);
         width: 30%;
@@ -1364,7 +1443,7 @@ a {
 
 @media all and (max-width:999px){
     .body{
-        background-color: rgb(249, 242, 111);
+        background-color: rgb(130, 255, 182);
         font-family: Arial;
         height: 100vh;
         margin: 0px;
@@ -1392,7 +1471,36 @@ a {
     .tresc{
         background-color: rgb(0, 255, 98);
     }
-    
+    .na_tle{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        background-color: rgba(7, 131, 189, 0.5);
+        height: 440px;
+        float:left;
+    }
+    .na_tle_tekst{
+        margin-left: 50px;
+        margin-right: 0px;
+        margin-top: 0px;
+        padding: 0px;
+        height:440px;
+        float:left;
+    }
+    .zdjecie_tlo {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .tlo {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 200px;
+        background: #CFD5DE url(zdjecia/niebo.jpg) no-repeat center center fixed;
+        background-size:cover
+    }
     .header {
         /*background-color: rgb(216, 32, 25); */
         background-image: linear-gradient(to top, #97f3ff 0%, #0fe6e6 100%);
@@ -1400,7 +1508,7 @@ a {
         text-align: center;
         margin-left: 0;
         margin-right:0;
-        padding: 20px;
+        padding: 0px;
         margin-top: 0px;
         font-size: 30px;
         height: 200px;
@@ -1443,11 +1551,17 @@ a {
         background-color: white;
         
     }
+    .powrot:hover{
+        background-color: rgb(210, 248, 128);
+    }
     .tilelink2{
         background-color: white;
         text-decoration: none;
         margin-left: 10px;
         color: rgb(16, 221, 64);
+    }
+    .tilelink2:hover{
+        background-color: rgb(210, 248, 128);
     }
     .surowce{
         background-color: rgb(205, 243, 248); 
@@ -1663,7 +1777,9 @@ a {
         padding-top: 0px;
         margin-top: 40px;
     }
-    
+    .budynek:hover{
+        background-color: rgb(201, 249, 112);
+    }
     .budynek_budowa{
         width: 100%;
         background-color: rgb(189, 244, 215);
@@ -1875,7 +1991,9 @@ a {
         margin-right: auto;
         text-decoration: none;
     }
-    
+    .tworzenie:hover{
+        background-color: rgb(210, 248, 128);
+    }
     .mecz{
         color: rgb(42, 165, 50);
         width: 80%;

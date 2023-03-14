@@ -25,9 +25,15 @@
     
 <body class="body">
     <Header class="header">
-        <h1 id="naglowek"> Osadnicy</h1>
-
-
+    <div class="tlo">
+        <br>
+        <div class="tresc_tlo">
+            <div id="naglowek_na_tle">
+            <h1 id="naglowek"> Osadnicy</h1>
+            </div>
+        </div>
+        </div>  
+        
     </Header>
 
     <a href="ratusz.php">
@@ -162,7 +168,7 @@ $zmiana=$czas-(int)$pobranyczas;
 document.getElementById("nazmienna_wioska").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2022 </p>
+            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
         </footer>
     
 </body>

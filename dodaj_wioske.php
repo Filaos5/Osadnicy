@@ -54,14 +54,12 @@
    $pozycja_x=$pozycja_x+1;
         //    }
         //}
-    $czas=time();
+    $czas=(int)time();
     if($_SESSION['uzytkownik_zalogowany']!=$uzytkownik_przeslany){
-    $sql = "INSERT INTO uczestnicy ( id_user, mecz, era, zywnosc, drewno, kamien, metal, pieniadze, czas, uczestnictwo, zatwierdzone)
-            VALUES ( '$uzytkownik_przeslany', '$id_meczu', 1, 0, 0, 0, 0, 10000, '$czas', 1, 0)";
+    $sql = "INSERT INTO uczestnicy ( id_user, mecz, era, czas, uczestnictwo, zatwierdzone)
+            VALUES ( '$uzytkownik_przeslany', '$id_meczu', 1, '$czas', 1, 0)";
             $polaczenie->query($sql);    
-        //$sql = "INSERT INTO wioska ( id_uczestnika, mecz, pozycjax, pozycjay, ratusz)
-         //       VALUES ( '$id_uczestnika', '$mecz', '$x', '$y', '0')";
-          //      @$polaczenie->query($sql);
+
     }
     $sql = "SELECT id FROM uczestnicy WHERE id_user='$uzytkownik_przeslany' AND mecz='$id_meczu'";
     if($rezultat = $polaczenie->query($sql))
@@ -73,11 +71,7 @@
     
  }
  //echo $id;
-    $sql = "UPDATE wioska SET id_uczestnika='$id', cywile=20 WHERE mecz='$id_meczu' AND pozycjax=$pozycja_x AND pozycjay=$pozycja_y";
-          //for($y=1;$y<=20;$y++){
-             // for($x=1;$x<=20;$x++){
-              //    $sql = "INSERT INTO wioska ( id_uczestnika, mecz, pozycjax, pozycjay, ratusz)
-              //        VALUES ( 0 , '$mecz', '$x', '$y', '0')";
+    $sql = "UPDATE wioska SET id_uczestnika='$id', cywile=20, predkosc_zl=20 WHERE mecz='$id_meczu' AND pozycjax=$pozycja_x AND pozycjay=$pozycja_y";
     $polaczenie->query($sql);
     $_SESSION['uzytkownik_przeslany']=0;
     $_SESSION['wioska_pozycja']=-1;
