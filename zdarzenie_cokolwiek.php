@@ -269,14 +269,14 @@ echo 'F35 '.$F35_cel;
 echo 'patriot '.$patriot_cel;
 echo 'northropB2 '.$northropB2_cel;
 echo 'tomahawk '.$tomahawk_cel;
-/*
+
 $sql = "UPDATE wioska SET miecznik=miecznik+$miecznik_ilosc, lucznik=lucznik+$lucznik_ilosc,
 kawalerzysta=kawalerzysta+$kawalerzysta_ilosc, lucznikkon=lucznikkon+$lucznikkon_ilosc, karabin=karabin+$karabin_ilosc,
 armata=armata+$armata_ilosc, czolg=czolg+$czolg_ilosc, karabinmaszynowy=karabinmaszynowy+$karabinmaszynowy_ilosc,
 mustang=mustang+$mustang_ilosc, F35=F35+$F35_ilosc, northropB2=northropB2+$northropB2_ilosc, 
 tomahawk=tomahawk+$tomahawk_ilosc WHERE id=$id_wioski_cel";
     $polaczenie->query($sql);
-    */
+    
 $sql2 = "UPDATE ataki SET zrobione=1 WHERE id=$id_ataku";
 $polaczenie->query($sql2);
     } 
@@ -1041,9 +1041,21 @@ if($obronca_wygrany==0){
  // echo 'cywile '.$cywile_cel.'<br>';
 
   if($morale<1){
+    $sql_c = "SELECT * FROM wioska WHERE id=$id_wioski_cel";  
+    if($rezultat_c = @$polaczenie->query($sql_c))
+{
+    $wiersz_c = $rezultat_c->fetch_assoc();
+    $id_user_atakowany=$wiersz_c['id_uczestnika'];
+}
+
     $sql = "UPDATE wioska SET id_uczestnika=$uczestnik WHERE id=$id_wioski_cel";
     $polaczenie->query($sql);
     }    
+    $sql_d = "SELECT * FROM wioska WHERE id_uczestnika=$id_user_atakowany";  
+    if($rezultat_d = @$polaczenie->query($sql_d))
+    {
+    $ile_wiosek = $rezultat_d->num_rows;
+    }
           
         if($ile_wiosek==0){ 
           $sql = "UPDATE uczestnicy SET uczestnictwo=-1 WHERE id=$id_uczestnik_atakowany";
