@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
-
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 
 <body class="body">
@@ -80,7 +80,14 @@
 
 
     <footer class="footer">
-        <p><div id="tekst"></div> Filip Sawicki 2023</p>
+        <p><div id="tekst"></div> 
+        <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+      </p>
         <p id="nazwafirmy"></p>
         <p id="dane"></p>
 

@@ -18,7 +18,12 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
-
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+            <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.js"></script>
 </head>
 
 <body class="body">
@@ -32,7 +37,6 @@
         </div>
         </div>  
     </Header>
-
     <div class="container">
         <h2>
         <?php
@@ -46,7 +50,7 @@
     </h2>
     </br>
         <main>
-        <h2>Zaloguj się</h2>
+        <h2>Zaloguj się</h2>  
         <form action="zaloguj.php" method="POST">
       <ul class="flex">       
         <li class="form-group">
@@ -70,10 +74,29 @@
     </form>
     <img class="zdjecie" src="zdjecia/grod.jpg">
         </main>
+
     </div>
 
+    
     <footer class="footer">
-    <p><div id="tekst"></div> Filip Sawicki 2023</p>
+    <p><div id="tekst">  
+
+    <div ng-app="mySPA">
+    
+
+            <div ng-view></div>
+            <script src="spa.js"></script>  
+
+    </div>
+    <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+
+
+</div></p>
     </footer>
     
 </body>
