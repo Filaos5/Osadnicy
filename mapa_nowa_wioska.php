@@ -105,6 +105,7 @@ $id_meczu=$_SESSION['mecz_przeslany'];
     $predkosc_metal=$pobranywiersz['predkosc_metal'];
     $predkosc_zl=$pobranywiersz['predkosc_zl'];
  }
+ 
  //echo 'zywnosc ';
  //echo $predkosc_zywnosc;
  //echo 'drewno ';
@@ -126,7 +127,7 @@ if($rezultat = @$polaczenie->query($sql))
  
 }
 ?>
-
+<br><br>
 <script>
      window.onload = surowce_odliczac;
      var zywnosc_liczba = <?php echo $pobranywiersz['zywnosc']; ?>;
