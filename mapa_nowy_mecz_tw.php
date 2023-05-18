@@ -43,7 +43,7 @@
     <h2>
         <?php
        if(isset($_SESSION['login'])){
-        echo "Użytkownik  ". $_SESSION['login'];
+        //echo "Użytkownik  ". $_SESSION['login'];
         ?>
         <a href="wyloguj.php">
             <div class="tilelink2">Wyloguj się
@@ -77,7 +77,7 @@
  {
 
 $id_uzytkownik=$_SESSION['id_sesji'];
-echo $_SESSION['mecz_przeslany'];
+//echo $_SESSION['mecz_przeslany'];
 $id_meczu=$_SESSION['mecz_przeslany'];
 $sql = "SELECT * FROM uczestnicy WHERE id_user='$id_uzytkownik' AND mecz='$id_meczu'";
 if($rezultat2 = @$polaczenie->query($sql))
@@ -90,7 +90,7 @@ if($rezultat2 = @$polaczenie->query($sql))
     }
 $id_uczestnik_zalogowany=$_SESSION['id_zalogowanego_uczestnika'];
 //echo $_POST['mPozycja'];
-echo $_SESSION['id_zalogowanego_uczestnika'];
+//echo $_SESSION['id_zalogowanego_uczestnika'];
 /*
 if(isset($_SESSION['uzytkownik_przeslany'])){
     if($_SESSION['uzytkownik_przeslany']==0)

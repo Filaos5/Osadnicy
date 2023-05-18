@@ -107,8 +107,14 @@ for($i=0;$i<$ile_zdarzen;$i++){
                 $ile_wiosek = $rezultat->num_rows;
                 $predkosc_cala=0;
                 $wiersz = $rezultat->fetch_assoc();
+                $predkosc_wioskih=0;
+                $predkosc_wioskik=0;
+                if($wiersz['huta']>0){
                 $predkosc_wioskih=100*(2**($wiersz['huta']-1));
+                }
+                if($wiersz['kuznia']>0){
                 $predkosc_wioskik=2**($wiersz['kuznia']-1);
+                }
                 $roznica=$czas-$koniec_budowy;
                 $naliczenieh=($predkosc_wioskih/2)*$roznica;
                 $naliczeniek=($predkosc_wioskik/2)*$roznica;

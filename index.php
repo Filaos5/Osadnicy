@@ -22,7 +22,7 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
-
+    <script src="js/vue.js"></script>
 </head>
     
 <body class="body">

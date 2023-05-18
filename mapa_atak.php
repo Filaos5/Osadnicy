@@ -43,7 +43,7 @@
     <h2>
         <?php
        if(isset($_SESSION['login'])){
-        echo "Użytkownik  ". $_SESSION['login'];
+       // echo "Użytkownik  ". $_SESSION['login'];
         ?>
         <a href="wyloguj.php">
             <div class="tilelink2">Wyloguj się

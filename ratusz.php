@@ -41,7 +41,7 @@
     <h2>
         <?php
        if(isset($_SESSION['login'])){
-        echo "Użytkownik  ". $_SESSION['login'];
+        //echo "Użytkownik  ". $_SESSION['login'];
         ?>
         <a href="wyloguj.php">
             <div class="tilelink2">Wyloguj się
@@ -158,13 +158,13 @@ czas=$czas WHERE id=$id_wioski";
 $liczba = 1234.56;
 
     // notacja angielska (domyślna)
-    $notacja_angielska = number_format($liczba);
+    //$notacja_angielska = number_format($liczba);
     // 1,234.56
 
     // notacja polska
-    $notacja_polska = number_format($liczba, 0, ',', ' ');
+    //$notacja_polska = number_format($liczba, 0, ',', ' ');
     // 1 234,56
-    echo number_format((int)$wioska_budynki['zywnosc'], 0, ',', ' ');
+    //echo number_format((int)$wioska_budynki['zywnosc'], 0, ',', ' ');
 ?>
 <script>
        window.onload = surowce_odliczac;
