@@ -43,7 +43,7 @@
     <h2>
         <?php
        if(isset($_SESSION['login'])){
-       // echo "Użytkownik  ". $_SESSION['login'];
+        echo "Użytkownik  ". $_SESSION['login'];
         ?>
         <a href="wyloguj.php">
             <div class="tilelink2">Wyloguj się
@@ -109,7 +109,7 @@ $zmiana=$czas-(int)$pobranyczas;
     <div class="container">
     <h4>MAPA</h4>
     <h3>Wybierz wioskę którą chcesz zaatakować</h3>
-    <?php echo $id_wioski;   ?>    
+   
     <div class="tabela">
         <?php
         

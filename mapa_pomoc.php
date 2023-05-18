@@ -107,7 +107,7 @@ $zmiana=$czas-(int)$pobranyczas;
     <div class="container">
     <h4>MAPA</h4>
     <h3>Wybierz wioskę której chcesz przekazać wsparcie</h3>
-    <?php echo $id_wioski;   ?>    
+   
     <div class="tabela">
         <?php
         
