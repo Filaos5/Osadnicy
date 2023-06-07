@@ -20,6 +20,8 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 
 </head>
     
@@ -127,7 +129,7 @@ else{
  ?>
 
     <h4>Mapa mecz numer <?php echo $id_meczu ?></h4>
-    <div class="objasnienia"> <?php echo $login_gracza ?> zaznacz gdzie chcesz mieć wioskę.</div>
+    <div class="objasnienia"> <?php echo $login_gracza ?> zaznacz gdzie chcesz mieć miasto.</div>
     <div class="tabela">
         <?php
         $sql = "SELECT * FROM wioska WHERE mecz=$id_meczu";
@@ -181,7 +183,14 @@ else{
 document.getElementById("nazmienna").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

@@ -21,6 +21,8 @@
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
@@ -162,7 +164,6 @@ $sql = "UPDATE wioska SET zywnosc=zywnosc+ $zmiana*$predkosc_zywnosc, drewno =dr
 kamien=kamien+ $zmiana*$predkosc_kamien, metal=metal+ $zmiana*$predkosc_metal, pieniadze=pieniadze+ $zmiana*$predkosc_zl,
 czas=$czas WHERE id=$id_wioski";
 @$polaczenie->query($sql);
- $polaczenie->close();
  }
  ?>
 <script>
@@ -206,6 +207,31 @@ czas=$czas WHERE id=$id_wioski";
     <div class="container">
     <br>  
         <div class="nazwa_budynku"> Koszary </div>
+<?php
+
+        $sql_x = "SELECT * FROM szkolenia WHERE kiedy_koniec>$czas AND zrobione=0 AND wioska=$id_wioski ORDER BY kiedy_koniec";
+   // $polaczenie->query($sql);
+    if($rezultat_x = @$polaczenie->query($sql_x))
+    {
+        $ile_szkolen = $rezultat_x->num_rows;
+        for($i=0;$i<$ile_szkolen;$i++){
+            $wiersz_p = $rezultat_x->fetch_assoc();
+            $ilosc=$wiersz_p['ilosc'];
+            $jednostka=$wiersz_p['jednostka'];
+            if($jednostka=='miecznik' || $jednostka=='lucznik' || $jednostka=='karabin' || $jednostka=='karabinmaszynowy'){
+            ?>
+            <div class="budynek_budowa2">
+
+        <?php
+    echo "Szkolenie: ", $jednostka," ilość: ",$ilosc; 
+    ?>
+    </div>
+    <?php
+        }
+    }
+    }
+    $polaczenie->close();
+        ?>
         <div class="wojsko_ramka"> Miecznik
         <div class="budynek_budowa">
         <ul class="koszty_w">
@@ -259,15 +285,15 @@ czas=$czas WHERE id=$id_wioski";
              <li>   Ilość            
             <input type="number" name="karabinmaszynowy_ilosc" value="0" id='karabinmaszynowy' required /></li>
         </ul> 
-       
-        <button type="submit" name="rejestracja" id="przycisk" >TRENUJ</button>
-         
-        </form>   
+        
     </div>
     </div>
     <?php
     }
     ?>
+    <center><button class="button-2" type="submit" name="rejestracja" id="przycisk" >TRENUJ</button></center>
+
+         </form>   
     <br><br><br>
 
     <br><br>
@@ -331,7 +357,14 @@ czas=$czas WHERE id=$id_wioski";
     ?>
     </div>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023</p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

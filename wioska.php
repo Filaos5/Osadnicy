@@ -20,6 +20,8 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 
 </head>
     
@@ -223,9 +225,10 @@
             $wiersz4 = $rezultat4->fetch_assoc();
             $poz_x=$wiersz4['pozycjax'];
             $poz_y=$wiersz4['pozycjay'];
-            echo "   z wioski o pozycji x", $poz_x, " i pozycji y",$poz_y;
+            $id_uczestnika=$wiersz4['id_uczestnika'];
+            echo "   z miasta o pozycji x", $poz_x, " i pozycji y",$poz_y;
         }
-    $sql2 = "SELECT id_user FROM uczestnicy WHERE id=$id_pobrane";
+    $sql2 = "SELECT id_user FROM uczestnicy WHERE id=$id_uczestnika";
     if($rezultat2 = @$polaczenie->query($sql2))
     {
         $wiersz2 = $rezultat2->fetch_assoc();
@@ -234,7 +237,7 @@
         if($rezultat3 = @$polaczenie->query($sql3))
         {
             $wiersz3 = $rezultat3->fetch_assoc();
-            echo " należącej do gracza ",$wiersz3['login'];
+            echo " należącego do gracza ",$wiersz3['login'];
         }
     }
     ?> 
@@ -366,7 +369,14 @@
 document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023</p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

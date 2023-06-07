@@ -20,6 +20,8 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 
 </head>
     
@@ -206,7 +208,10 @@ czas=$czas WHERE id=$id_wioski";
     else{
         ?>
         <div class="budynek_budowa">
-         Buduje się!
+        <?php
+        $wiersz = $rezultat->fetch_assoc(); 
+        echo "Buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
     }}
@@ -224,7 +229,14 @@ czas=$czas WHERE id=$id_wioski";
     <br> <br> 
     
         <footer class="footer">
-        <p><div id="tekst"></div> Filip Sawicki 2023</p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

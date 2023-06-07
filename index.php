@@ -23,6 +23,7 @@
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
     
 <body class="body">
@@ -132,6 +133,7 @@ $zmiana=$czas-(int)$pobranyczas;
         for($i=0;$i<$ile_atakow;$i++){
             $wiersz = $rezultat->fetch_assoc();
             $id_koniec=$wiersz['wioska_koniec'];
+            $id_poczatek=$wiersz['wioska_poczatek'];
             $sojusz_atak=$wiersz['sojusz_atak'];
             $sql5="SELECT * FROM wioska WHERE id=$id_koniec";
             if($rezultat5 = @$polaczenie->query($sql5))
@@ -140,26 +142,27 @@ $zmiana=$czas-(int)$pobranyczas;
                // echo $wiersz5['id_uczestnika'];
                // echo $id_uczestnik_zalogowany;
                 if($wiersz5['id_uczestnika']==$id_uczestnik_zalogowany){
-            ?>
-    <div class="budynek_budowa">
-    <?php
+     
     $id_pobrane=$wiersz['wioska_poczatek'];
     $id_celu=$wiersz['wioska_koniec'];
+    $id_uczestnika=$wiersz['uczestnik'];
     if($sojusz_atak==1){
-    echo "Atak przybędzie: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']);
-    }
-    else{
-    echo "Pomoc przybędzie: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']);    
-    }
+        ?>
+        <div class="budynek_budowa">
+        <?php
+    echo "Atak przybędzie: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']); 
+    //else{
+    //echo "Pomoc przybędzie: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']);    
+    //}
     $sql4="SELECT * FROM wioska WHERE id=$id_pobrane";
     if($rezultat4 = @$polaczenie->query($sql4))
         {
             $wiersz4 = $rezultat4->fetch_assoc();
             $poz_x=$wiersz4['pozycjax'];
             $poz_y=$wiersz4['pozycjay'];
-            echo "   z wioski o pozycji x", $poz_x, " i pozycji y",$poz_y;
+            echo "   z miasta o pozycji x", $poz_x, " i pozycji y",$poz_y;
         }
-    $sql2 = "SELECT id_user FROM uczestnicy WHERE id=$id_pobrane";
+    $sql2 = "SELECT * FROM uczestnicy WHERE id=$id_uczestnika";
     if($rezultat2 = @$polaczenie->query($sql2))
     {
         $wiersz2 = $rezultat2->fetch_assoc();
@@ -168,7 +171,7 @@ $zmiana=$czas-(int)$pobranyczas;
         if($rezultat3 = @$polaczenie->query($sql3))
         {
             $wiersz3 = $rezultat3->fetch_assoc();
-            echo " należącej do gracza ",$wiersz3['login'];
+            echo " należącego do gracza ",$wiersz3['login'];
         }
     }
     ?><br> <?php 
@@ -178,13 +181,81 @@ $zmiana=$czas-(int)$pobranyczas;
             $wiersz5 = $rezultat5->fetch_assoc();
             $poz_xc=$wiersz5['pozycjax'];
             $poz_yc=$wiersz5['pozycjay'];
-            echo "do wioski o pozycji x", $poz_xc, " i pozycji y",$poz_yc;
+            echo "do miasta o pozycji x", $poz_xc, " i pozycji y",$poz_yc;
         }
-    
-    ?> 
+        ?> 
     </div> 
             <?php 
-        }  }    
+    }
+    
+        }  }
+    }    
+    }
+    $sql = "SELECT * FROM ataki WHERE czas_dotarcia>$czas ORDER BY czas_dotarcia";
+   // $polaczenie->query($sql);
+    if($rezultat = @$polaczenie->query($sql))
+    {
+        $ile_atakow = $rezultat->num_rows;
+    for($i=0;$i<$ile_atakow;$i++){
+        $wiersz = $rezultat->fetch_assoc();
+        $id_koniec=$wiersz['wioska_koniec'];
+        $id_poczatek=$wiersz['wioska_poczatek'];
+        $sojusz_atak=$wiersz['sojusz_atak'];
+        $sql5="SELECT * FROM wioska WHERE id=$id_poczatek";
+        if($rezultat5 = @$polaczenie->query($sql5))
+        {
+            $wiersz5 = $rezultat5->fetch_assoc();
+           // echo $wiersz5['id_uczestnika'];
+           // echo $id_uczestnik_zalogowany;
+            if($wiersz5['id_uczestnika']==$id_uczestnik_zalogowany){
+        ?>
+<div class="budynek_budowa">
+<?php
+$id_pobrane=$wiersz['wioska_poczatek'];
+$id_celu=$wiersz['wioska_koniec'];
+if($sojusz_atak==1){
+echo "Atak dotrze do celu: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']);
+}
+else{
+echo "Pomoc dotrze do celu: ", date("Y-m-d H:i:s", $wiersz['czas_dotarcia']);    
+}
+$sql4="SELECT * FROM wioska WHERE id=$id_celu";
+if($rezultat4 = @$polaczenie->query($sql4))
+    {
+        $wiersz4 = $rezultat4->fetch_assoc();
+        $poz_x=$wiersz4['pozycjax'];
+        $poz_y=$wiersz4['pozycjay'];
+        $id_uczestnika_atakowanego=$wiersz4['id_uczestnika'];
+        echo "   do miasta o pozycji x", $poz_x, " i pozycji y",$poz_y;
+    }
+$sql2 = "SELECT * FROM uczestnicy WHERE id=$id_uczestnika_atakowanego";
+if($rezultat2 = @$polaczenie->query($sql2))
+{
+    //echo $id_celu;
+    $wiersz2 = $rezultat2->fetch_assoc();
+    $id_user_pobrane=$wiersz2['id_user'];
+    $sql3 = "SELECT login FROM uzytkownicy WHERE id=$id_user_pobrane";
+    if($rezultat3 = @$polaczenie->query($sql3))
+    {
+        $wiersz3 = $rezultat3->fetch_assoc();
+        echo " należącego do gracza ",$wiersz3['login'];
+    }
+}
+?><br> <?php 
+$sql4="SELECT * FROM wioska WHERE id=$id_pobrane";
+if($rezultat5 = @$polaczenie->query($sql4))
+    {
+        $wiersz5 = $rezultat5->fetch_assoc();
+        $poz_xc=$wiersz5['pozycjax'];
+        $poz_yc=$wiersz5['pozycjay'];
+        echo "z miasta o pozycji x", $poz_xc, " i pozycji y",$poz_yc;
+    }
+
+?> 
+</div> 
+        <?php 
+    }  }  
+}
     }
     ?>
     <div class="container">
@@ -229,7 +300,7 @@ $zmiana=$czas-(int)$pobranyczas;
                 ?>	
                 </div>
                 <?php
-        }}
+        }
         $polaczenie->close();
     }
         ?>
@@ -248,7 +319,14 @@ document.getElementById("nazmienna_wioska").value = zmiennajava;</script>
 document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

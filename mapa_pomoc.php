@@ -20,6 +20,8 @@
     <title> Osadnicy</title>
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 
 </head>
     
@@ -106,7 +108,7 @@ $zmiana=$czas-(int)$pobranyczas;
  ?>
     <div class="container">
     <h4>MAPA</h4>
-    <h3>Wybierz wioskę której chcesz przekazać wsparcie</h3>
+    <h3>Wybierz miasto któremu chcesz przekazać wsparcie</h3>
    
     <div class="tabela">
         <?php
@@ -168,7 +170,14 @@ $zmiana=$czas-(int)$pobranyczas;
 document.getElementById("nazmienna_wioska").value = zmiennajava;</script>
 </form>
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

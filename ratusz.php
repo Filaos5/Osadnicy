@@ -21,6 +21,8 @@
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body class="body" onload="odliczanie();">
     <Header class="header">
@@ -41,7 +43,7 @@
     <h2>
         <?php
        if(isset($_SESSION['login'])){
-        //echo "Użytkownik  ". $_SESSION['login'];
+        echo "Użytkownik  ". $_SESSION['login'];
         ?>
         <a href="wyloguj.php">
             <div class="tilelink2">Wyloguj się
@@ -231,7 +233,7 @@ function budynek_nazwa(id){
     <br>
     <div class=tworzenie onclick="przejscie(id)" id="mapa_pomoc"> Przekaż pomoc</div>
     <br>
-    <div class=tworzenie onclick="przejscie(id)" id="mapa_nowa_wioska"> Załóż nową wioskę</div>
+    <div class=tworzenie onclick="przejscie(id)" id="mapa_nowa_wioska"> Załóż nowe miasto</div>
     <br>
         <div class="nazwa_budynku"> Budynki</div>
         <?php
@@ -262,8 +264,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
     ?>
-    <div class="budynek_budowa">
-     Gospodarstwo buduje się!
+    <div class="budynek_budowa2">
+    <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Gospodarstwo buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
     </div> 
     <?php 
     }}
@@ -295,8 +300,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
       else{
         ?>
-        <div class="budynek_budowa">
-         Tartak buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Tartak buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -325,8 +333,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Kuznia buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Kuźnia buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -358,8 +369,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Kamieniolom buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Kamieniołom buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -390,8 +404,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Kosciol buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Kościół buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -423,8 +440,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Koszary budują się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Koszary buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -456,8 +476,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Stajnia buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Stajnia buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -489,8 +512,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Uniwersytet buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Uniwersytet buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -519,8 +545,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Huta buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Huta buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -552,8 +581,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Fabryka buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Fabryka buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -585,8 +617,11 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     }
     else{
         ?>
-        <div class="budynek_budowa">
-         Lotnisko buduje się!
+        <div class="budynek_budowa2">
+        <?php
+        $wiersz_k = $rezultat->fetch_assoc(); 
+        echo "Lotnisko buduje się! Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?> 
         </div> 
         <?php 
         }}
@@ -597,22 +632,36 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
 {
     $ile_zdarzen = $rezultat->num_rows;
     if($ile_zdarzen>0){
+        for($i=0;$i<$ile_zdarzen;$i++){
+            $wiersz_k = $rezultat->fetch_assoc(); 
         ?>
-        <div class="budynek_budowa">
-         Domy budują się!
+        
+        <div class="budynek_budowa2">
+         <?php
+        echo "Domy budują się! Ilość:",$wiersz_k['ilosc'], " Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?>
         </div> 
         <?php 
+        }
         }}
         $sql = "SELECT * FROM budowa WHERE wioska=$id_wioski AND budynek='blok' AND zrobione=0";
-        if($rezultat = @$polaczenie->query($sql))
+        if($rezultat_b = @$polaczenie->query($sql))
 {
-    $ile_zdarzen = $rezultat->num_rows;
+    $ile_zdarzen = $rezultat_b->num_rows;
+    //$wiersz_k = $rezultat_b->fetch_assoc();
     if($ile_zdarzen>0){
+        for($i=0;$i<$ile_zdarzen;$i++){
+            $wiersz_k = $rezultat_b->fetch_assoc(); 
         ?>
-        <div class="budynek_budowa">
-         Bloki budują się!
+        
+        <div class="budynek_budowa2">
+            
+         <?php
+        echo "Bloki budują się! Ilość:",$wiersz_k['ilosc'], " Koniec budowy: ", date("Y-m-d H:i:s", $wiersz_k['kiedy_koniec']);
+         ?>
         </div> 
         <?php 
+        }
         }}
         ?>
     <div class="budynek_budowa">
@@ -660,7 +709,6 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     </div>
     <div class="budynek_zbudowany"> Zbudowane bloki <?php echo $wioska_budynki['blok']; ?>
     </div>
-    <br> 
     <div class="nazwa_budynku"> Ludność</div>
     <div class="budynek_budowa">
     <div class="b_budowa"> Ludność
@@ -688,7 +736,14 @@ document.getElementById("kolejne_przejscie").value = zmiennajava;</script>
     <br> <br> 
     
         <footer class="footer">
-            <p><div id="tekst"></div> Filip Sawicki 2023 </p>
+        <p><div id="tekst">
+            <div id='app' class='content' ><h3>{{title}} {{name}} {{year}}</h3></div>
+    <script>var data = new Date();
+    x=data.getFullYear()
+    const TestApp = {  data(){  
+      return {     title: 'Copyright: ',     year: x,    name: 'Filip Sawicki',    } }}
+      Vue.createApp(TestApp).mount('#app')</script>
+            </div></p>
         </footer>
     
 </body>

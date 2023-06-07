@@ -1,3 +1,46 @@
+.button-2 {
+  background-color: #FFFFFF;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.button-2:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.button-2:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.button-2:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 @media all and (min-width:2000px){
 .body{
     background-color: rgb(130, 255, 182);
@@ -23,6 +66,27 @@ width: 100%;
 padding: 20px 0px 20px 0px;
 height: 100px;
 position: relative;
+}
+
+.logowanie_otoczka{
+    background-color:rgb(255, 255, 255);
+    width: 500px;
+    padding: 20px;
+    color:rgb(3, 121, 32);
+    font-size: 20px;;
+}
+
+.napis_log{
+    color:rgb(3, 121, 32);
+    width: 200px;
+    float: left;
+    text-decoration: none;
+}
+.pole_input{
+    float: left;
+    color:rgb(3, 121, 32);
+    text-decoration: none;
+    padding: 2px;
 }
 
 .tresc{
@@ -361,6 +425,17 @@ h4{
     color: rgb(36, 6, 6);
     font-size: 30px;
     padding-top: 0px;
+    padding-left: 50px;
+    margin-top: 20px;
+}
+
+.budynek_budowa2{
+    width: 100%-50px;
+    background-color: rgb(189, 244, 215);
+    height: 60px;
+    color: rgb(36, 6, 6);
+    font-size: 30px;
+    padding-top: 10px;
     padding-left: 50px;
     margin-top: 20px;
 }
@@ -743,6 +818,26 @@ a {
     height: 100px;
     position: relative;
     }
+    .logowanie_otoczka{
+        background-color:rgb(255, 255, 255);
+        width: 500px;
+        padding: 20px;
+        color:rgb(3, 121, 32);
+        font-size: 20px;;
+    }
+    
+    .napis_log{
+        color:rgb(3, 121, 32);
+        width: 200px;
+        float: left;
+        text-decoration: none;
+    }
+    .pole_input{
+        float: left;
+        color:rgb(3, 121, 32);
+        text-decoration: none;
+        padding: 2px;
+    }
     
     .tresc{
         background-color: rgb(0, 255, 98);
@@ -1083,6 +1178,17 @@ a {
         color: rgb(36, 6, 6);
         font-size: 20px;
         padding-top: 0px;
+        padding-left: 10px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    .budynek_budowa2{
+        width: 100%-50px;
+        background-color: rgb(189, 244, 215);
+        height: 60px;
+        color: rgb(36, 6, 6);
+        font-size: 20px;
+        padding-top: 8px;
         padding-left: 10px;
         margin-top: 20px;
         margin-bottom: 50px;
@@ -1467,7 +1573,26 @@ a {
     height: 100px;
     position: relative;
     }
+    .logowanie_otoczka{
+        background-color:rgb(255, 255, 255);
+        width: 90%;
+        padding: 20px;
+        margin: 0px;
+        color:rgb(3, 121, 32);
+        font-size: 20px;;
+    }
     
+    .napis_log{
+        color:rgb(3, 121, 32);
+        width: 100%;
+        text-decoration: none;
+    }
+    .pole_input{
+
+        color:rgb(3, 121, 32);
+        text-decoration: none;
+        padding: 2px;
+    }
     .tresc{
         background-color: rgb(0, 255, 98);
     }
@@ -1786,7 +1911,20 @@ a {
         color: rgb(36, 6, 6);
         font-size: 20px;
         padding-top: 0px;
-        padding-left: 00px;
+        padding-left: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 20px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .budynek_budowa2{
+        width: 100%;
+        background-color: rgb(189, 244, 215);
+        color: rgb(36, 6, 6);
+        font-size: 20px;
+        padding-top: 0px;
+        padding-left: 0px;
         margin-left: 0px;
         margin-right: 0px;
         margin-top: 20px;
